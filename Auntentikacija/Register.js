@@ -3,7 +3,7 @@ import React, {  useState } from "react";
 import { Button, StyleSheet, TextInput } from "react-native";
 import axios from "axios";
 
-function Login  ({ navigation })  {
+function Register ({ navigation })  {
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
   const [username, setUsername] = useState("");
@@ -81,4 +81,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login
+export default Register

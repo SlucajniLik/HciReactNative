@@ -47,6 +47,7 @@ import React, {  useState } from "react";
 import { Button, StyleSheet, TextInput } from "react-native";
 import BookList from "../Pages/BookList";
 import axios from "axios";
+import AsyncStorage from '@react-native-async-storage/async-storage'
 function Login  ({ navigation })  {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -67,7 +68,10 @@ function Login  ({ navigation })  {
         console.log(response.data.token+"log")
         if(response.data.token!=null)
         {
+          AsyncStorage.setItem("token",response.data.token)
             navigation.navigate('BookList');
+
+           
         }
         
     });

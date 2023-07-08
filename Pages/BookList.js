@@ -1,56 +1,51 @@
-/*import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Pressable,
-} from 'react-native';
-*/
 
- /*export default function Login({ navigation }) {
-
-    const onPressHandler = () => {
-      navigation.navigate('Register');
-    }
-  
-    return (
-      <View style={styles.body}>
-        <Text style={styles.text}>
-          LogIn
-        </Text>
-        <Pressable
-          onPress={onPressHandler}
-          style={({ pressed }) => ({ backgroundColor: pressed ? '#ddd' : '#0f0' })}
-        >
-          <Text style={styles.text}>
-            Register
-          </Text>
-        </Pressable>
-      </View>
-    )
-  }
-
-  const styles = StyleSheet.create({
-    body: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    text: {
-      fontSize: 40,
-      fontWeight: 'bold',
-      margin: 10,
-    }
-  })
-*/
-import React, {  useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { Button, StyleSheet, TextInput } from "react-native";
-import BookList from "../Pages/BookList";
-
-function Login  ({ navigation })  {
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import axios from "axios";
+import { UserContext } from "../Auntentikacija/UserContext";
+import { useContext } from "react";
+function BookList  ({ navigation })  {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [token, setToken] = useState("");
   const baseUlr="http://lekar1-001-site1.htempurl.com/"
+  
+ 
+const user=useContext(UserContext)
+useEffect(()=>{
+
+  (async()=>{
+    const value = await AsyncStorage.getItem("token");
+  
+    if (value !== null) {
+      console.log("ovdee    "+value+"878")
+
+      
+axios
+.get(baseUlr+"getBooks",{
+  headers: {
+    Authorization:"Bearer "+value,
+  },
+})
+.then((response) => {
+  console.log(response)
+});
+    }
+
+  })()
+ 
+
+
+  
+  
+},[])
+
+
+
+
+
+
   const onPressHandler = () => {
 
 
@@ -78,7 +73,7 @@ function Login  ({ navigation })  {
     <>
      
       
-      <Button   onPress={onPressHandler} title={"Lista knjiga"}  />
+      <Button   onPress={onPressHandler} title={"Lista knjiga  od "+user.username}  />
     </>
   );
 };
@@ -91,4 +86,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login
+export default BookList
