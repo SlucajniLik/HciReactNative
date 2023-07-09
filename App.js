@@ -8,61 +8,19 @@ import LogIn from './Auntentikacija/LogIn';
 import Register from './Auntentikacija/Register';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import BookList from './Pages/BookList';
-import AppNav from './Auntentikacija/appNav';
+import AppNav from './Auntentikacija/AppNav';
 import { UserContext } from './Auntentikacija/UserContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
 
+import axios from 'axios';
+import { baseUlr } from './config';
 // const Tab = createBottomTabNavigator();
 // const Tab = createMaterialBottomTabNavigator();
 const Tab = createMaterialTopTabNavigator();
 
 function App() {
-  const baseUlr="http://lekar1-001-site1.htempurl.com/"
-const [user,SetUser]=useState("")
 
-
-useEffect(
-()=>
-{
-
-(async ()=>
-{
-
-
-const value=await AsyncStorage.getItem("token")
-
-if(value!==null)
-{
-//axios.defaults.headers.common['Authorization']="Bearer "+value
-
-
-//console.log("ovdee    "+value+"   //")
-
-
-
-  axios
-    .get(baseUlr+"getInformation",{
-      headers: {
-        Authorization:"Bearer "+value,
-      },
-    })
-    .then((response) => {
-        SetUser(response.data)
-       
-        
-    });
-}
-})()
-
-
-
-
-
-
-
-
-},[])
+const [user,SetUser]=useState(null)
+const [userToken,SetUserToken]=useState(null)
 
 
 
@@ -70,7 +28,7 @@ if(value!==null)
 
 
   return (
- <UserContext.Provider value={user}>
+ <UserContext.Provider value={{SetUser,user,SetUserToken,userToken}}>
 <AppNav/>
  </UserContext.Provider>
 

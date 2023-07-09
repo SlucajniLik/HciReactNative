@@ -1,0 +1,1 @@
+export const baseUlr="http://lekar1-001-site1.htempurl.com/"

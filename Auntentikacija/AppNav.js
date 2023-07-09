@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
@@ -10,60 +10,60 @@ import Login from './LogIn';
 import Register from './Register';
 import BookList from '../Pages/BookList';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-
+import { UserContext } from './UserContext';
+import { useContext } from 'react';
+import axios from 'axios';
 // const Tab = createBottomTabNavigator();
 // const Tab = createMaterialBottomTabNavigator();
 const Tab = createMaterialTopTabNavigator();
 
 function AppNav() {
 
-
-  const LogOut = () => {
-
+const {SetUser,user,SetUserToken,userToken}=useContext(UserContext)
 
 
-AsyncStorage.removeItem("token")
-    
-  }
+useEffect(
+()=>
+{
+(
+async ()=>{
+
+
+let token= await AsyncStorage.getItem("token")
+let userA= await AsyncStorage.getItem("user")
+
+userA=JSON.parse(userA)
+if(userA)
+{
+console.log(userA.userId+"Navccc")
+SetUser(userA)
+SetUserToken(token)
+axios.defaults.headers.common['Authorization']="Bearer "+token
+}
+
+
+
+
+
+
+
+})()
+
+
+
+
+
+
+
+},[])
+
+
+
+ 
   return (
     <NavigationContainer>
-      <Tab.Navigator
-      // //  screenOptions={({ route }) => ({
-      //     // tabBarIcon: ({ focused, size, color }) => {
-      //       let iconName;
-      //       if (route.name === 'LogIn') {
-      //         iconName = 'autoprefixer';
-      //         size = focused ? 25 : 20;
-      //         // color = focused ? '#f0f' : '#555';
-      //       } else if (route.name === 'Register') {
-      //         iconName = 'btc';
-      //         size = focused ? 25 : 20;
-      //         // color = focused ? '#f0f' : '#555';
-      //       }
-      //       return (
-      //         <FontAwesome5
-      //           name={iconName}
-      //           size={size}
-      //           color={color}
-      //         />
-      //       )
-      //     }
-      //   })}
-      //   tabBarOptions={{
-      //     activeTintColor: '#f0f',
-      //     inactiveTintColor: '#555',
-      //     activeBackgroundColor: '#fff',
-      //     inactiveBackgroundColor: '#999',
-      //     showLabel: true,
-      //     labelStyle: { fontSize: 14 },
-      //     showIcon: true,
-      //   }}
-      //   activeColor='#f0edf6'
-      //   inactiveColor='#3e2465'
-      //   barStyle={{ backgroundColor: '#694fad' }}
-      >
-        <Tab.Screen
+     { userToken==null ? <Tab.Navigator>
+         <Tab.Screen
           name="LogIn"
           component={Login}
           
@@ -72,16 +72,25 @@ AsyncStorage.removeItem("token")
           name="Register"
           component={Register}
         />
+      </Tab.Navigator>
+      :
+      <Tab.Navigator>
          <Tab.Screen
           name="BookList"
           component={BookList}
+
+          options={{
+            headerTitle: (props) => <LogoTitle {...props} />,
+            headerRight: () => (
+              <Button
+                onPress={LogOut}
+                title="Info"
+                color="#fff"
+              />
+            ),
+          }}
         />
-         <Tab.Screen
-          name="Odjavi se"
-          component={LogOut}
-        />
-   
-      </Tab.Navigator>
+      </Tab.Navigator>}
       
     </NavigationContainer>
   )

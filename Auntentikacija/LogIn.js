@@ -1,57 +1,16 @@
-/*import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Pressable,
-} from 'react-native';
-*/
 
- /*export default function Login({ navigation }) {
-
-    const onPressHandler = () => {
-      navigation.navigate('Register');
-    }
-  
-    return (
-      <View style={styles.body}>
-        <Text style={styles.text}>
-          LogIn
-        </Text>
-        <Pressable
-          onPress={onPressHandler}
-          style={({ pressed }) => ({ backgroundColor: pressed ? '#ddd' : '#0f0' })}
-        >
-          <Text style={styles.text}>
-            Register
-          </Text>
-        </Pressable>
-      </View>
-    )
-  }
-
-  const styles = StyleSheet.create({
-    body: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    text: {
-      fontSize: 40,
-      fontWeight: 'bold',
-      margin: 10,
-    }
-  })
-*/
 import React, {  useState } from "react";
 import { Button, StyleSheet, TextInput } from "react-native";
 import BookList from "../Pages/BookList";
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { baseUlr } from "../config";
+import { UserContext } from "../Auntentikacija/UserContext";
+import { useContext } from "react";
 function Login  ({ navigation })  {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const baseUlr="http://lekar1-001-site1.htempurl.com/"
+  const {SetUser,user,SetUserToken,userToken}=useContext(UserContext)
   const onPressHandler = () => {
 
 
@@ -69,6 +28,10 @@ function Login  ({ navigation })  {
         if(response.data.token!=null)
         {
           AsyncStorage.setItem("token",response.data.token)
+          AsyncStorage.setItem("user",JSON.stringify(response.data))
+          SetUserToken(response.data.token)
+          SetUser(response.data)
+          axios.defaults.headers.common['Authorization']="Bearer "+response.data.token
             navigation.navigate('BookList');
 
            
