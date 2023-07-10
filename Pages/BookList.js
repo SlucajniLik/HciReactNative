@@ -6,14 +6,16 @@ import axios from "axios";
 import { UserContext } from "../Auntentikacija/UserContext";
 import { useContext } from "react";
 import { baseUlr } from "../config";
+import DataWrapper from "./Book";
+import Book from "./Book";
 function BookList  ({ navigation })  {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
-  const [niz, SetNiz] = useState("");
+  const [data, setData] = useState([]);
   
   const {SetUser,user,SetUserToken,userToken}=useContext(UserContext)
-  
+ 
   const LogOut = () => {
     SetUser(null)
     SetUserToken(null)
@@ -27,13 +29,14 @@ useEffect(()=>{
 
  
       
+
 axios
 .get(baseUlr+"getBooks")
 .then((response) => {
-  console.log(response)
-  SetNiz(response)
+  console.log(response.data)
+ setData(response.data)
 });
-    
+
 },[])
 
 
@@ -45,8 +48,22 @@ axios
   return (
     <>
      
+     
+
+
+
+
+
+
+
+
+
+
       
-      <Button   onPress={LogOut} title={"Lista knjiga  od "+user.userId}  />
+      <Button   onPress={LogOut} title={"Odjavite se "+ (user?.userId)}  />
+      <View>
+      <Book  data={data}></Book>
+    </View>
     </>
   );
 };

@@ -13,6 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { UserContext } from './UserContext';
 import { useContext } from 'react';
 import axios from 'axios';
+import UploadBook from '../Pages/UploadBook';
 // const Tab = createBottomTabNavigator();
 // const Tab = createMaterialBottomTabNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -78,17 +79,10 @@ axios.defaults.headers.common['Authorization']="Bearer "+token
          <Tab.Screen
           name="BookList"
           component={BookList}
-
-          options={{
-            headerTitle: (props) => <LogoTitle {...props} />,
-            headerRight: () => (
-              <Button
-                onPress={LogOut}
-                title="Info"
-                color="#fff"
-              />
-            ),
-          }}
+        />
+          <Tab.Screen
+          name="UploadBooks"
+          component={UploadBook}
         />
       </Tab.Navigator>}
       
