@@ -6,8 +6,9 @@ import axios from "axios";
 import { UserContext } from "../Auntentikacija/UserContext";
 import { useContext } from "react";
 import { baseUlr } from "../config";
-import DataWrapper from "./Book";
+
 import Book from "./Book";
+import { Text } from "react-native-paper";
 function BookList  ({ navigation })  {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -48,22 +49,11 @@ axios
   return (
     <>
      
-     
-
-
-
-
-
-
-
-
-
-
-      
       <Button   onPress={LogOut} title={"Odjavite se "+ (user?.userId)}  />
-      <View>
+      <Text>{JSON.stringify(data)}</Text>
+      
       <Book  data={data}></Book>
-    </View>
+    
     </>
   );
 };
