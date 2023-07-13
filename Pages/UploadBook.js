@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { View, Button,Image } from 'react-native';
+import { View, Button,Image,Text,TextInput } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
 import axios from 'axios';
+import { UserContext } from "../Auntentikacija/UserContext";
+import { useContext } from "react";
+import { baseUlr } from "../config";
 //import firebase from 'firebase/app';
 
 //import firebase from "firebase";
@@ -10,35 +13,54 @@ import axios from 'axios';
 //import { imgbbUploader } from "imgbb-uploader"; 
 import {firebase} from '../config';
 function UploadBook(){
-
+  const {SetUser,user,SetUserToken,userToken}=useContext(UserContext)
 //const reference = storage().ref('/imagess/t-shirts/black-t-shirt-sm.png');
 
-
-const uploadFileToFirebase = async (fileUri,filenamee) => {
+const [nameBook,setNameBook]=useState("")
+const [pdfBook,setPdfBook]=useState(null)
+const [nameImage,setNameImage]=useState(null)
+const [nameBook1,setNameBook1]=useState(null)
+const [uriBook,setUriBook]=useState(null)
+const [uriImage,setUriImage]=useState(null)
+const [imageBook,setImageBook]=useState(null)
+const uploadFileToFirebase = async (fileUri,filenamee,type) => {
   try {
     const response = await fetch(fileUri);
     const blob = await response.blob();
 
     const filename =filenamee //fileUri.substring(fileUri.lastIndexOf('/') + 1);
-    const ref = firebase.storage().ref().child(`uploads/${filename}`);
-
+    var ref;
+    if(type=="pdf")
+    {
+     ref = firebase.storage().ref().child(`books/${filename}`);
+    }
+    else
+    {
+       ref = firebase.storage().ref().child(`uploads/${filename}`);
+    }
     const uploadTask = ref.put(blob);
     const snapshot = await uploadTask;
 
     const downloadURL = await snapshot.ref.getDownloadURL();
+if(type=="pdf")
+{
+  setPdfBook(downloadURL)
+ 
+}
+else(type=="image")
+{
 
+  setImageBook(downloadURL)
+  
+}
     // Do something with the downloadURL, such as saving it to a database
     console.log('File uploaded successfully:', downloadURL);
+
+    return downloadURL;
   } catch (error) {
     console.error('Error uploading file:', error);
   }
 };
-
-
-
-
-
-
   const [image,SetImage]=useState(null)
   const handleImageUpload = async () => {
     try {
@@ -49,82 +71,85 @@ const uploadFileToFirebase = async (fileUri,filenamee) => {
   
       if (file.type === 'success') {
 
-
-
-
-
-
-        SetImage(file.uri)
-
-        uploadFileToFirebase(file.uri,file.name)
-      /*  const formData = new FormData();
-       
-        formData.append('image',{
-          uri:file.uri ,
-          type:file.mimeType,
-          name: file.name,
-          
-          
-    });
-
-
-
-    
-
-
-       /// console.log(file.type+"aaa")
-       const clientId = "cd892558bd5eaab",
-        auth = "Client-ID " + clientId;
-      axios.post('https://api.imgur.com/3/image',formData,
-      { headers: {
-        // Setting header
-        Authorization: auth,
-        Accept: 'application/json',
         
-      }},).then(
-        data=>console.log(data+"//").catch(error=>console.log(error))
-      )
-  
-
-
-    
-     const result = response.data;
-
-console.log(result+"////////")
-
-        if (response.status === 200) {
-          
-          console.log('Upload success:', result);
-        } else {
-          console.log('Upload failed.');
-        }
-
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+console.log(file.mimeType)
+          if(file.mimeType!="application/pdf")
+          {
+            setUriImage(file.uri)
+            setNameImage(file.name)
+          }
+          else
+          {
+            setUriBook(file.uri)
+            setNameBook1(file.name)
+          }
+       // uploadFileToFirebase(file.uri,file.name)
       }
     } catch (error) {
       console.error('Error:', error);
     }
   };
   
+  const UploadBooks= async()=>{
+
+
+
+const im=await uploadFileToFirebase(uriImage,nameImage,"image")
+const pd=await uploadFileToFirebase(uriBook,nameBook1,"pdf")
+
+console.log(imageBook+"immmmmmmmmmmmm")
+console.log(pdfBook+"dddddddddddddddddddddddddd")
+    const book={
+      id:0,
+      userId:user.UserId,
+      categoryId:0,
+      name:nameBook,
+      urlImage:im,
+      urlBook:pd,
+      likes:0
+  
+    }
+    
+    
+    
+      axios
+      .post(baseUlr+"addBook",book)
+      .then((response) => {
+         console.log(response)
+          
+      });
+    
+    
+    
+    
+    
+    
+    }
+
+
+
+
+
+
+
+
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       {  image!=null? <Image source={{ uri: image }} style={styles.image} />:console.log(image)}
+
       <Button title="Upload Image" onPress={handleImageUpload} />
+      <Text>AAAAAA</Text>
+      <Button title="Upload book" onPress={handleImageUpload} />
+      <Text>AAAAAA</Text>
+      <TextInput
+        style={styles.input}
+        value={nameBook}
+        placeholder={"Ime knjige"}
+        
+        onChangeText={(text) => setNameBook(text)}
+      />
+       <Button title="Unesite knjigu" onPress={UploadBooks} />
     </View>
   );
 };
@@ -148,5 +173,10 @@ const styles = {
     width: 50,
     height: 50,
     marginRight: 10,
+  },
+  input: {
+    height: 40,
+    marginBottom: 10,
+    backgroundColor: '#fff',
   },
 };

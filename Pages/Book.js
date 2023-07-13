@@ -10,7 +10,7 @@ function Book({ data })  {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View>    
-           <Image  source={{uri: item.link}}  style={styles.image}/>
+           <Image  source={{uri: item.urlImage}}  style={styles.image}/>
          
           <Text>{item.name}</Text>
           
