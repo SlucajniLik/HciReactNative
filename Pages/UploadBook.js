@@ -2,8 +2,42 @@ import React, { useState } from 'react';
 import { View, Button,Image } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
 import axios from 'axios';
+//import firebase from 'firebase/app';
+
+//import firebase from "firebase";
+//import storage from '@react-native-firebase/storage';
+
 //import { imgbbUploader } from "imgbb-uploader"; 
-const UploadBook = () => {
+import {firebase} from '../config';
+function UploadBook(){
+
+//const reference = storage().ref('/imagess/t-shirts/black-t-shirt-sm.png');
+
+
+const uploadFileToFirebase = async (fileUri,filenamee) => {
+  try {
+    const response = await fetch(fileUri);
+    const blob = await response.blob();
+
+    const filename =filenamee //fileUri.substring(fileUri.lastIndexOf('/') + 1);
+    const ref = firebase.storage().ref().child(`uploads/${filename}`);
+
+    const uploadTask = ref.put(blob);
+    const snapshot = await uploadTask;
+
+    const downloadURL = await snapshot.ref.getDownloadURL();
+
+    // Do something with the downloadURL, such as saving it to a database
+    console.log('File uploaded successfully:', downloadURL);
+  } catch (error) {
+    console.error('Error uploading file:', error);
+  }
+};
+
+
+
+
+
 
   const [image,SetImage]=useState(null)
   const handleImageUpload = async () => {
@@ -14,40 +48,72 @@ const UploadBook = () => {
       });
   
       if (file.type === 'success') {
+
+
+
+
+
+
         SetImage(file.uri)
-        const formData = new FormData();
+
+        uploadFileToFirebase(file.uri,file.name)
+      /*  const formData = new FormData();
        
         formData.append('image',{
+          uri:file.uri ,
+          type:file.mimeType,
           name: file.name,
-          type: "image/jpeg",
-          uri:file.uri // Replace with the appropriate MIME type if needed
-        });
-        console.log(file.type+"aaa")
-        const clientId = "beab1b15c93903d",
+          
+          
+    });
+
+
+
+    
+
+
+       /// console.log(file.type+"aaa")
+       const clientId = "cd892558bd5eaab",
         auth = "Client-ID " + clientId;
-       const response = await axios.post('https://api.imgur.com/3/image',formData,
+      axios.post('https://api.imgur.com/3/image',formData,
       { headers: {
         // Setting header
         Authorization: auth,
         Accept: 'application/json',
         
       }},).then(
-        data=>console.log(data)
-      ).then(data=>console.log(data));
+        data=>console.log(data+"//").catch(error=>console.log(error))
+      )
   
 
 
     
+     const result = response.data;
 
-
-
+console.log(result+"////////")
 
         if (response.status === 200) {
-          const result = response.data;
+          
           console.log('Upload success:', result);
         } else {
           console.log('Upload failed.');
         }
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       }
     } catch (error) {
       console.error('Error:', error);
