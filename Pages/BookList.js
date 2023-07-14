@@ -17,6 +17,29 @@ function BookList  ({ navigation })  {
   
   const {SetUser,user,SetUserToken,userToken}=useContext(UserContext)
  
+
+
+
+
+  const onPressHandler = () => {
+
+
+   
+         
+            navigation.navigate('SingleBook',{ idBook: 5 });
+
+           
+        }
+        
+  
+
+
+
+
+
+
+
+
   const LogOut = () => {
     SetUser(null)
     SetUserToken(null)
@@ -50,9 +73,12 @@ axios
     <>
      
       <Button   onPress={LogOut} title={"Odjavite se "+ (user?.userId)}  />
+      <Text>AAAAAA</Text>
+      <Button  onPress={onPressHandler} title={"Pogledaj detalje"}></Button>
       <Text>{JSON.stringify(data)}</Text>
       
-      <Book  data={data}></Book>
+      <Book  data={data}   navigation={navigation}></Book>
+      
     
     </>
   );

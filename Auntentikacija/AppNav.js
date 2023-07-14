@@ -14,10 +14,10 @@ import { UserContext } from './UserContext';
 import { useContext } from 'react';
 import axios from 'axios';
 import UploadBook from '../Pages/UploadBook';
-// const Tab = createBottomTabNavigator();
-// const Tab = createMaterialBottomTabNavigator();
+import { createStackNavigator } from '@react-navigation/stack';
 const Tab = createMaterialTopTabNavigator();
-
+const Stack = createStackNavigator();
+import SingleBook from '../Pages/SingleBook';
 function AppNav() {
 
 const {SetUser,user,SetUserToken,userToken}=useContext(UserContext)
@@ -59,7 +59,6 @@ axios.defaults.headers.common['Authorization']="Bearer "+token
 },[])
 
 
-
  
   return (
     <NavigationContainer>
@@ -84,9 +83,11 @@ axios.defaults.headers.common['Authorization']="Bearer "+token
           name="UploadBooks"
           component={UploadBook}
         />
+        <Tab.Screen name="SingleBook" component={SingleBook}  />
       </Tab.Navigator>}
-      
     </NavigationContainer>
+
+    
   )
 }
 

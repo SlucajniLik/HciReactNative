@@ -42,7 +42,10 @@
     "react-native-tab-view": "^3.5.2",
     "react-native-vector-icons": "^9.2.0",
     "react-native-view-pdf": "^0.14.0",
-    "react-native-web": "~0.18.10"
+    "react-native-web": "~0.18.10",
+    "rn-nodeify": "^10.3.0",
+    "expo-file-system": "~15.2.2",
+    "expo-linking": "~4.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
