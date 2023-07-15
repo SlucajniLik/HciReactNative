@@ -14,9 +14,41 @@ function BookList  ({ navigation })  {
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
   const [data, setData] = useState([]);
-  
+  const [bookS, SetBookS] = useState("");
+  const [sort, SetSort] = useState("asc");
   const {SetUser,user,SetUserToken,userToken}=useContext(UserContext)
  
+
+  const SearchText = () => {
+    axios
+    .get(baseUlr+"searchBooks/"+bookS)
+    .then((response) => {
+      console.log(response.data)
+      setData(response.data)
+    })
+
+   
+    }
+
+    const SortText = () => {
+      axios
+      .get(baseUlr+"sortBooks/"+sort)
+      .then((response) => {
+        console.log(response.data)
+        setData(response.data)
+        if(sort=="asc")
+        {SetSort("desc")}
+        else if(sort=="desc")
+        {
+          SetSort("asc")
+        }
+      })
+  
+
+     
+      }
+
+
 
 
 
@@ -71,7 +103,21 @@ axios
   
   return (
     <>
-     
+      <TextInput
+        style={styles.input}
+        value={bookS}
+        placeholder={"Search"}
+       
+        onChangeText={(text) => SetBookS(text)}
+
+        onChange={SearchText}
+      />
+
+<Button  onPress={SortText}     title={sort}  ></Button>
+<Text>Search</Text>
+
+
+
       <Button   onPress={LogOut} title={"Odjavite se "+ (user?.userId)}  />
       <Text>AAAAAA</Text>
       <Button  onPress={onPressHandler} title={"Pogledaj detalje"}></Button>
