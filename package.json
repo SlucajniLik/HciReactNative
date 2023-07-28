@@ -23,6 +23,8 @@
     "axios": "^1.4.0",
     "expo": "~48.0.18",
     "expo-document-picker": "~11.2.2",
+    "expo-file-system": "~15.2.2",
+    "expo-linking": "~4.0.1",
     "expo-status-bar": "~1.4.4",
     "firebase": "^10.0.0",
     "http-proxy-middleware": "^2.0.6",
@@ -43,9 +45,7 @@
     "react-native-vector-icons": "^9.2.0",
     "react-native-view-pdf": "^0.14.0",
     "react-native-web": "~0.18.10",
-    "rn-nodeify": "^10.3.0",
-    "expo-file-system": "~15.2.2",
-    "expo-linking": "~4.0.1"
+    "rn-nodeify": "^10.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

@@ -6,6 +6,10 @@ import { Linking } from 'react-native';
 import { baseUlr } from "../config";
 import * as FileSystem from 'expo-file-system';
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import LikeButton from '../Components/LikeButton';
+import StarRating from '../Components/StarRating';
+import { UserContext } from "../Auntentikacija/UserContext";
+import { useContext } from "react";
 // Additional imports if needed
 function SingleBook({route})  {
     
@@ -13,6 +17,9 @@ const [book,SetBook]=useState({})
 const [comment,SetComment]=useState("")
 const [commentData,SetCommentData]=useState([])
 const[check,SetCheck]=useState(true)
+const [likes, setLikes] = useState(10);
+const [isLiked, setIsLiked] = useState(false);
+const {SetUser,user,SetUserToken,userToken}=useContext(UserContext)
   useEffect(()=>{
 
    
@@ -41,6 +48,31 @@ if(route.params?.idBook)
       console.log(response.data)
       SetBook(response.data)
     })
+
+
+
+
+    axios
+    .get(baseUlr+"countLikes/"+route.params?.idBook)
+    .then((response) => {
+      console.log(response.data+"/////=")
+      setLikes(response.data)
+    })
+
+
+    
+var like={
+  userId: user?.userId,
+  bookId: route.params?.idBook
+}
+    axios
+    .post(baseUlr+"isChecked",like)
+    .then((response) => {
+      console.log(response.data+"=====")
+      setIsLiked(response.data)
+    })
+
+
   }
     },[route.params?.idBook,check])
 
@@ -115,7 +147,10 @@ const com={
       </View>
     );
 
-    
+    const handleRating = (rating) => {
+      // Handle the selected rating here
+      console.log('Selected Rating:', rating);
+    };
   return (
    <>
     
@@ -127,8 +162,12 @@ const com={
     
  
 <Button   onPress={()=>downloadBook(book.urlBook)}  title={"Skini knjigu"} ></Button>
+<LikeButton  likeCount={likes} bookIdd={route.params?.idBook} userIdd={user?.userId} isLikedd={isLiked} 
+setLikess={setLikes} setIsLikedd={setIsLiked}
+/>
+<StarRating maxStars={5} initialRating={3} onPress={handleRating} />
         </View>
-
+       
 
 
     
@@ -174,7 +213,7 @@ export default SingleBook;
 const styles = {
   wrapper: {
     flex: 1,
-    backgroundColor: 'red',
+    backgroundColor: 'yellow',
   },
   bookContainer: {
     flexDirection: 'row',

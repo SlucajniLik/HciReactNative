@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, FlatList ,Text,Image,Button} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import LikeButton from '../Components/LikeButton';
 // Additional imports if needed
 function Book({ data,navigation })  {
 
@@ -32,6 +33,7 @@ console.log(id+"/////")
            <Image  source={{uri: item.urlImage}}  style={styles.image}/>
          
           <Text>{item.name}</Text>
+         
       <Button  onPress={()=>onPressHandler(item.id)} title={"Pogledaj detalje"}></Button>
           </View>
         )}
@@ -46,7 +48,7 @@ export default Book;
 const styles = {
   wrapper: {
     flex: 1,
-    backgroundColor: 'red',
+    backgroundColor: 'yellow',
   },
   bookContainer: {
     flexDirection: 'row',
