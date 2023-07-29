@@ -19,6 +19,7 @@ const [commentData,SetCommentData]=useState([])
 const[check,SetCheck]=useState(true)
 const [likes, setLikes] = useState(10);
 const [isLiked, setIsLiked] = useState(false);
+const [stars,setStars]=useState(0)
 const {SetUser,user,SetUserToken,userToken}=useContext(UserContext)
   useEffect(()=>{
 
@@ -71,6 +72,19 @@ var like={
       console.log(response.data+"=====")
       setIsLiked(response.data)
     })
+
+
+
+    axios
+    .get(baseUlr+"getMark/"+user?.userId+"/"+route.params?.idBook)
+    .then((response) => {
+      console.log(response.data+"zvezda")
+      setStars(response.data)
+    })
+
+
+
+
 
 
   }
@@ -165,7 +179,9 @@ const com={
 <LikeButton  likeCount={likes} bookIdd={route.params?.idBook} userIdd={user?.userId} isLikedd={isLiked} 
 setLikess={setLikes} setIsLikedd={setIsLiked}
 />
-<StarRating maxStars={5} initialRating={3} onPress={handleRating} />
+<StarRating maxStars={5} starss={stars} setStarss={setStars}    onPress={handleRating}
+userIdd={user?.userId} bookIdd={route.params?.idBook}
+/>
         </View>
        
 

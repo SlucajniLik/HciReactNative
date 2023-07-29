@@ -1,13 +1,74 @@
-import React, { useState } from 'react';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState ,useEffect} from 'react';
+import { View, TouchableOpacity, StyleSheet,Text } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'; // You can choose a different icon library if you prefer
+import axios from "axios";
+import { baseUlr } from "../config";
+const StarRating = ({ maxStars, starss,setStarss,onPress,userIdd,bookIdd}) => {
 
-const StarRating = ({ maxStars, initialRating, onPress }) => {
-  const [rating, setRating] = useState(initialRating);
+
+  const [average, setAverage] = useState(10);
+ 
+
+
+
+
+  useEffect(()=>{
+    console.log(bookIdd+"[[[[[")
+
+    if(bookIdd)
+    {
+      axios
+      .get(baseUlr+"getAverageMark/"+bookIdd)
+      .then((response) => {
+        console.log(response.data+"Averageee")
+        setAverage(response.data)
+       
+      })
+    }
+  
+     
+
+ 
+     },[bookIdd])
+
+
+
 
   const handleStarPress = (selectedRating) => {
-    setRating(selectedRating);
+ 
+   if(starss==1)
+   { 
+    setStarss(selectedRating);
     onPress(selectedRating);
+
+   
+    var rate={
+      userId: userIdd,
+      bookId: bookIdd,
+      mark:selectedRating
+    }
+
+    axios
+    .post(baseUlr+"setMark",rate)
+    .then((response) => {
+      console.log(response.data+"rate")
+
+
+
+      axios
+      .get(baseUlr+"getAverageMark/"+bookIdd)
+      .then((response) => {
+        console.log(response.data+"Averageee")
+        setAverage(response.data)
+       
+      })
+     
+    })
+
+console.log(selectedRating+"ocenaaaa")
+
+   }
+   
   };
 
   const renderStars = () => {
@@ -20,9 +81,9 @@ const StarRating = ({ maxStars, initialRating, onPress }) => {
           activeOpacity={0.7}
         >
           <Icon
-            name={i <= rating ? 'star' : 'star-outline'}
+            name={i <= starss ? 'star' : 'star-outline'}
             size={30}
-            color={i <= rating ? 'gold' : 'gray'}
+            color={i <= starss ? 'gold' : 'gray'}
             style={styles.star}
           />
         </TouchableOpacity>
@@ -31,7 +92,13 @@ const StarRating = ({ maxStars, initialRating, onPress }) => {
     return stars;
   };
 
-  return <View style={styles.container}>{renderStars()}</View>;
+  return <View style={styles.container}>
+    
+    
+    {renderStars()}
+    
+    <Text>Ocena:{starss>1?average:0}</Text>
+    </View>;
 };
 
 const styles = StyleSheet.create({
