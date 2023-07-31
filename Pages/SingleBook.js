@@ -10,6 +10,7 @@ import LikeButton from '../Components/LikeButton';
 import StarRating from '../Components/StarRating';
 import { UserContext } from "../Auntentikacija/UserContext";
 import { useContext } from "react";
+import AddToFavoritesButton from '../Components/AddToFavoritesButton';
 // Additional imports if needed
 function SingleBook({route})  {
     
@@ -19,8 +20,9 @@ const [commentData,SetCommentData]=useState([])
 const[check,SetCheck]=useState(true)
 const [likes, setLikes] = useState(10);
 const [isLiked, setIsLiked] = useState(false);
+const [isFavorit, setIsFavorit] = useState(false);
 const [stars,setStars]=useState(0)
-const {SetUser,user,SetUserToken,userToken}=useContext(UserContext)
+const {SetUser,user,SetUserToken,userToken,sharedCheck,SetSharedCheck}=useContext(UserContext)
   useEffect(()=>{
 
    
@@ -83,6 +85,19 @@ var like={
     })
 
 
+
+   
+    var fav={
+      userId: user?.userId,
+      bookId: route.params?.idBook
+    }
+
+    axios
+    .post(baseUlr+"isFavorit",fav)
+    .then((response) => {
+      console.log(response.data+"=====")
+      setIsFavorit(response.data)
+    })
 
 
 
@@ -182,6 +197,7 @@ setLikess={setLikes} setIsLikedd={setIsLiked}
 <StarRating maxStars={5} starss={stars} setStarss={setStars}    onPress={handleRating}
 userIdd={user?.userId} bookIdd={route.params?.idBook}
 />
+<AddToFavoritesButton     isFavoritt={isFavorit} setIsFavoritt={setIsFavorit}  userIdd={user?.userId} bookIdd={route.params?.idBook} />
         </View>
        
 

@@ -15,6 +15,7 @@ import { useContext } from 'react';
 import axios from 'axios';
 import UploadBook from '../Pages/UploadBook';
 import { createStackNavigator } from '@react-navigation/stack';
+import FavoriteBooks from '../Pages/FavoriteBooks';
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
 import SingleBook from '../Pages/SingleBook';
@@ -84,6 +85,7 @@ axios.defaults.headers.common['Authorization']="Bearer "+token
           component={UploadBook}
         />
         <Tab.Screen name="SingleBook" component={SingleBook}  />
+        <Tab.Screen name="Favorites" component={FavoriteBooks}  />
       </Tab.Navigator>}
     </NavigationContainer>
 
