@@ -23,6 +23,9 @@ const [nameBook1,setNameBook1]=useState(null)
 const [uriBook,setUriBook]=useState(null)
 const [uriImage,setUriImage]=useState(null)
 const [imageBook,setImageBook]=useState(null)
+const [nameWarning,setNameWarning]=useState(null)
+const [imageCheck,setImageCheck]=useState(null)
+const [bookCheck,setBookCheck]=useState(null)
 const uploadFileToFirebase = async (fileUri,filenamee,type) => {
   try {
     const response = await fetch(fileUri);
@@ -33,10 +36,12 @@ const uploadFileToFirebase = async (fileUri,filenamee,type) => {
     if(type=="pdf")
     {
      ref = firebase.storage().ref().child(`books/${filename}`);
+     setBookCheck(false)
     }
     else
     {
        ref = firebase.storage().ref().child(`uploads/${filename}`);
+       setImageCheck(false)
     }
     const uploadTask = ref.put(blob);
     const snapshot = await uploadTask;
@@ -94,31 +99,55 @@ console.log(file.mimeType)
 
 
 
-const im=await uploadFileToFirebase(uriImage,nameImage,"image")
-const pd=await uploadFileToFirebase(uriBook,nameBook1,"pdf")
 
-console.log(imageBook+"immmmmmmmmmmmm")
-console.log(pdfBook+"dddddddddddddddddddddddddd")
-    const book={
-      id:0,
-      userId:user.UserId,
-      categoryId:0,
-      name:nameBook,
-      urlImage:im,
-      urlBook:pd,
-      likes:0
+if(nameBook=="")
+{
+  setNameWarning(true)
+}
+else
+{setNameWarning(false)
+
+
+  const im=await uploadFileToFirebase(uriImage,nameImage,"image")
+  const pd=await uploadFileToFirebase(uriBook,nameBook1,"pdf")
   
-    }
-    
-    
-    
-      axios
-      .post(baseUlr+"addBook",book)
-      .then((response) => {
-         console.log(response)
-          
-      });
-    
+  console.log(imageBook+"immmmmmmmmmmmm")
+  console.log(pdfBook+"dddddddddddddddddddddddddd")
+
+}
+
+
+
+
+if(nameWarning==false && imageCheck==false && bookCheck==false)
+{
+  const book={
+    id:0,
+    userId:user.UserId,
+    categoryId:0,
+    name:nameBook,
+    urlImage:im,
+    urlBook:pd,
+    likes:0
+
+  }
+  
+  
+  
+    axios
+    .post(baseUlr+"addBook",book)
+    .then((response) => {
+       console.log(response)
+        
+    });
+  
+
+setBookCheck(true)
+setImageCheck(true)
+
+
+}
+   
     
     
     
@@ -139,16 +168,21 @@ console.log(pdfBook+"dddddddddddddddddddddddddd")
       {  image!=null? <Image source={{ uri: image }} style={styles.image} />:console.log(image)}
 
       <Button title="Upload Image" onPress={handleImageUpload} />
-      <Text>AAAAAA</Text>
+      <Text    >Slika je obavezna</Text>
       <Button title="Upload book" onPress={handleImageUpload} />
-      <Text>AAAAAA</Text>
+      <Text>pdf knjiga je obavezna</Text>
       <TextInput
         style={styles.input}
         value={nameBook}
         placeholder={"Ime knjige"}
         
-        onChangeText={(text) => setNameBook(text)}
+        onChangeText={(text) => 
+          
+         
+          
+          setNameBook(text)}
       />
+      {  nameWarning ==true?<Text  style={styles.warning}>Unesite ime knjige</Text>:""}
        <Button title="Unesite knjigu" onPress={UploadBooks} />
     </View>
   );
@@ -178,5 +212,10 @@ const styles = {
     height: 40,
     marginBottom: 10,
     backgroundColor: '#fff',
+  },
+  warning: {
+    height: 40,
+    marginBottom: 10,
+    backgroundColor: 'red',
   },
 };
