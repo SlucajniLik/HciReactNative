@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import { View, FlatList ,Text,Image,Button,TextInput} from 'react-native';
+import { View, FlatList ,Text,Image,Button,TextInput,TouchableOpacity} from 'react-native';
 import { Link, useRoute } from "@react-navigation/native"
 import axios from "axios";
 import { Linking } from 'react-native';
@@ -12,7 +12,7 @@ import { UserContext } from "../Auntentikacija/UserContext";
 import { useContext } from "react";
 import AddToFavoritesButton from '../Components/AddToFavoritesButton';
 // Additional imports if needed
-function SingleBook({route})  {
+function SingleBook({navigation,route})  {
     
 const [book,SetBook]=useState({})
 const [comment,SetComment]=useState("")
@@ -183,7 +183,8 @@ const com={
     };
   return (
    <>
-    
+   
+                   
     <View style={styles.wrapper}>
       
            <Image  source={{uri: book.urlImage}}  style={styles.image}/>
@@ -199,6 +200,8 @@ setLikess={setLikes} setIsLikedd={setIsLiked}
 userIdd={user?.userId} bookIdd={route.params?.idBook}
 />
 <AddToFavoritesButton     isFavoritt={isFavorit} setIsFavoritt={setIsFavorit}  userIdd={user?.userId} bookIdd={route.params?.idBook} />
+
+<Button onPress={() => navigation.goBack()} title='Vrati se nazad'></Button>
         </View>
        
 

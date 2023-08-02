@@ -19,8 +19,7 @@ import FavoriteBooks from '../Pages/FavoriteBooks';
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
 import SingleBook from '../Pages/SingleBook';
-import Tabs from './tabs';
-function AppNav() {
+function Tabs() {
 
 const {SetUser,user,SetUserToken,userToken}=useContext(UserContext)
 
@@ -65,24 +64,36 @@ axios.defaults.headers.common['Authorization']="Bearer "+token
   return (
     <>
     
-    <NavigationContainer >
-            <Stack.Navigator
-                screenOptions={{
-                    headerShown: false
-                }}
-                initialRouteName={'Home'}
-            >
-                {/* Tabs */}
-                <Stack.Screen name="Home" component={Tabs} />
-
-                {/* Screens */}
-                <Stack.Screen name="SingleBook" component={SingleBook}  options={{ headerShown: false }} />
-            </Stack.Navigator>
-        </NavigationContainer>
+     { userToken==null ? <Tab.Navigator>
+         <Tab.Screen
+          name="LogIn"
+          component={Login}
+          
+        />
+        <Tab.Screen
+          name="Register"
+          component={Register}
+        />
+      </Tab.Navigator>
+      :
+      <Tab.Navigator>
+         <Tab.Screen
+          name="BookList"
+          component={BookList}
+        />
+          <Tab.Screen
+          name="UploadBooks"
+          component={UploadBook}
+        />
+        
+    <Tab.Screen name="Favorites" component={FavoriteBooks}  />
+      </Tab.Navigator>}
+    
+    
 </>
     
   )
 }
 
-export default AppNav;
+export default Tabs;
 
