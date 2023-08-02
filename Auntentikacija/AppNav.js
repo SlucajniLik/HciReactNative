@@ -62,6 +62,7 @@ axios.defaults.headers.common['Authorization']="Bearer "+token
 
  
   return (
+    <>
     <NavigationContainer>
      { userToken==null ? <Tab.Navigator>
          <Tab.Screen
@@ -84,11 +85,11 @@ axios.defaults.headers.common['Authorization']="Bearer "+token
           name="UploadBooks"
           component={UploadBook}
         />
-        <Tab.Screen name="SingleBook" component={SingleBook}  />
-        <Tab.Screen name="Favorites" component={FavoriteBooks}  />
+        <Tab.Screen name="SingleBook" component={SingleBook}    />
+    <Tab.Screen name="Favorites" component={FavoriteBooks}  />
       </Tab.Navigator>}
     </NavigationContainer>
-
+</>
     
   )
 }

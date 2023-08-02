@@ -16,7 +16,7 @@ function BookList  ({ navigation })  {
   const [data, setData] = useState([]);
   const [bookS, SetBookS] = useState("");
   const [sort, SetSort] = useState("asc");
-  const {SetUser,user,SetUserToken,userToken}=useContext(UserContext)
+  const {SetUser,user,SetUserToken,userToken,sharedCheck,SetSharedCheck,booListCheck,SetBookListCheck}=useContext(UserContext)
  
 
   const SearchText = () => {
@@ -93,7 +93,7 @@ axios
  setData(response.data)
 })
 
-},[])
+},[booListCheck])
 
 
 

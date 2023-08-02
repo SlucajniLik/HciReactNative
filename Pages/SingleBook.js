@@ -129,6 +129,7 @@ const com={
           console.log(response.data)
           SetBook(response.data)
           SetCheck(!check)
+          SetComment("")
         })
 
 

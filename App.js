@@ -22,13 +22,13 @@ function App() {
 const [user,SetUser]=useState(null)
 const [userToken,SetUserToken]=useState(null)
 const [sharedCheck,SetSharedCheck]=useState(false)
-
+const [booListCheck,SetBookListCheck]=useState(false)
 
 
 
 
   return (
- <UserContext.Provider value={{SetUser,user,SetUserToken,userToken,sharedCheck,SetSharedCheck}}>
+ <UserContext.Provider value={{SetUser,user,SetUserToken,userToken,sharedCheck,SetSharedCheck,booListCheck,SetBookListCheck}}>
 <AppNav/>
  </UserContext.Provider>
 

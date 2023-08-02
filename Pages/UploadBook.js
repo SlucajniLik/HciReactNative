@@ -13,7 +13,7 @@ import { baseUlr } from "../config";
 //import { imgbbUploader } from "imgbb-uploader"; 
 import {firebase} from '../config';
 function UploadBook(){
-  const {SetUser,user,SetUserToken,userToken}=useContext(UserContext)
+  const {SetUser,user,SetUserToken,userToken,sharedCheck,SetSharedCheck,booListCheck,SetBookListCheck}=useContext(UserContext)
 //const reference = storage().ref('/imagess/t-shirts/black-t-shirt-sm.png');
 
 const [nameBook,setNameBook]=useState("")
@@ -26,6 +26,10 @@ const [imageBook,setImageBook]=useState(null)
 const [nameWarning,setNameWarning]=useState(null)
 const [imageCheck,setImageCheck]=useState(null)
 const [bookCheck,setBookCheck]=useState(null)
+const [globalWarning,setGlobalWarning]=useState(null)
+
+const [success,setSuccess]=useState(null)
+
 const uploadFileToFirebase = async (fileUri,filenamee,type) => {
   try {
     const response = await fetch(fileUri);
@@ -36,12 +40,14 @@ const uploadFileToFirebase = async (fileUri,filenamee,type) => {
     if(type=="pdf")
     {
      ref = firebase.storage().ref().child(`books/${filename}`);
-     setBookCheck(false)
+     
+     
     }
-    else
+    else if(type=="image")
     {
        ref = firebase.storage().ref().child(`uploads/${filename}`);
-       setImageCheck(false)
+      
+       
     }
     const uploadTask = ref.put(blob);
     const snapshot = await uploadTask;
@@ -50,12 +56,13 @@ const uploadFileToFirebase = async (fileUri,filenamee,type) => {
 if(type=="pdf")
 {
   setPdfBook(downloadURL)
- 
+  setGlobalWarning(false)
 }
 else(type=="image")
 {
 
   setImageBook(downloadURL)
+  setGlobalWarning(false)
   
 }
     // Do something with the downloadURL, such as saving it to a database
@@ -67,10 +74,12 @@ else(type=="image")
   }
 };
   const [image,SetImage]=useState(null)
-  const handleImageUpload = async () => {
+  const handleFileUpload = async (f)=> {
+
+    setSuccess(false)
     try {
       const file = await DocumentPicker.getDocumentAsync({
-        type: 'image/*',
+        type: f,
         copyToCacheDirectory: false,
       });
   
@@ -99,28 +108,15 @@ console.log(file.mimeType)
 
 
 
-
-if(nameBook=="")
-{
-  setNameWarning(true)
-}
-else
-{setNameWarning(false)
-
-
-  const im=await uploadFileToFirebase(uriImage,nameImage,"image")
-  const pd=await uploadFileToFirebase(uriBook,nameBook1,"pdf")
   
-  console.log(imageBook+"immmmmmmmmmmmm")
-  console.log(pdfBook+"dddddddddddddddddddddddddd")
+const im=await uploadFileToFirebase(uriImage,nameImage,"image")
+const pd=await uploadFileToFirebase(uriBook,nameBook1,"pdf")
 
-}
+console.log(imageBook+"immmmmmmmmmmmm")
+console.log(pdfBook+"dddddddddddddddddddddddddd")
 
-
-
-
-if(nameWarning==false && imageCheck==false && bookCheck==false)
-{
+  console.log("ovde sammmmmmmm")
+ 
   const book={
     id:0,
     userId:user.UserId,
@@ -140,13 +136,11 @@ if(nameWarning==false && imageCheck==false && bookCheck==false)
        console.log(response)
         
     });
+  SetBookListCheck(true)
+setSuccess(true)
+
   
 
-setBookCheck(true)
-setImageCheck(true)
-
-
-}
    
     
     
@@ -167,9 +161,9 @@ setImageCheck(true)
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       {  image!=null? <Image source={{ uri: image }} style={styles.image} />:console.log(image)}
 
-      <Button title="Upload Image" onPress={handleImageUpload} />
+      <Button title="Upload Image" onPress={() =>handleFileUpload('image/*')} />
       <Text    >Slika je obavezna</Text>
-      <Button title="Upload book" onPress={handleImageUpload} />
+      <Button title="Upload book" onPress={() =>handleFileUpload('application/pdf')} />
       <Text>pdf knjiga je obavezna</Text>
       <TextInput
         style={styles.input}
@@ -178,11 +172,23 @@ setImageCheck(true)
         
         onChangeText={(text) => 
           
-         
-          
-          setNameBook(text)}
+         {
+          if(text.length!=0)
+          {
+setNameWarning(true)
+          }
+          else
+          {
+            setNameWarning(false)
+            
+          }
+          setNameBook(text)
+         }
+        }
       />
-      {  nameWarning ==true?<Text  style={styles.warning}>Unesite ime knjige</Text>:""}
+      { /* nameWarning ==true?<Text  style={styles.warning}>Unesite ime knjige</Text>:""*/}
+      {  globalWarning ==true?<Text  style={styles.warning}>Unesite sve podatke</Text>:""}
+      {  success ==true?<Text  style={styles.success}>Uspesno ste uneli knigu</Text>:""}
        <Button title="Unesite knjigu" onPress={UploadBooks} />
     </View>
   );
@@ -217,5 +223,10 @@ const styles = {
     height: 40,
     marginBottom: 10,
     backgroundColor: 'red',
+  },
+  success: {
+    height: 40,
+    marginBottom: 10,
+    backgroundColor: 'green',
   },
 };

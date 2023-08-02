@@ -19,6 +19,7 @@ function Register ({ navigation })  {
   const [alredyExist, setAlredyExist] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
+  const [success,setSuccess]=useState(null)
   //const baseUlr="http://lekar1-001-site1.htempurl.com/"
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -57,6 +58,12 @@ console.log(user)
                {
                 setAlredyExist(true)
                }
+               else
+               {
+                  
+                   setSuccess(true)  
+
+               }
                // navigation.navigate('LogIn');
             });
 }
@@ -83,7 +90,9 @@ setGlobalWarning(true)
           {
             setNameWarning(false)
           }
+          
           setName(text)
+          setSuccess(false)
           setGlobalWarning(false)
           setAlredyExist(false)
           }}
@@ -108,6 +117,7 @@ setGlobalWarning(true)
           
 
           setSurname(text)
+          setSuccess(false)
           setGlobalWarning(false)
           setAlredyExist(false)
         }}
@@ -129,6 +139,7 @@ setGlobalWarning(true)
           }
           
           setUsername(text)
+          setSuccess(false)
           setGlobalWarning(false)
           setAlredyExist(false)
         }}
@@ -152,7 +163,7 @@ setGlobalWarning(true)
           {
             setPasswordWarning(false)
           }
-        
+          setSuccess(false)
           setGlobalWarning(false)
           setAlredyExist(false)
           setPassword(text)}}
@@ -190,6 +201,9 @@ setGlobalWarning(true)
       <Button   onPress={onPressHandler} title={"Registrujte se"}  />
       {  globalWarning ==true?<Text  style={styles.warning}>Unesite ispravno podatke</Text>:""}
       {  alredyExist ==true?<Text  style={styles.warning}>Kornisnik sa ovim korisnickim imenom vec postoji</Text>:""}
+
+      {  success ==true?<Text  style={styles.success}>Uspesno ste se registrovali</Text>:""}
+
     </>
   );
 };
@@ -204,6 +218,11 @@ const styles = StyleSheet.create({
     height: 40,
     marginBottom: 10,
     backgroundColor: 'red',
+  },
+  success: {
+    height: 40,
+    marginBottom: 10,
+    backgroundColor: 'green',
   },
   toggleButton: {
     paddingVertical: 5,
