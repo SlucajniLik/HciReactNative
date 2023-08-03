@@ -19,7 +19,7 @@ import FavoriteBooks from '../Pages/FavoriteBooks';
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
 import SingleBook from '../Pages/SingleBook';
-import Tabs from './tabs';
+import Tabs from './Tabs';
 function AppNav() {
 
 const {SetUser,user,SetUserToken,userToken}=useContext(UserContext)

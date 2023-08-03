@@ -46,7 +46,9 @@
     "react-native-vector-icons": "^9.2.0",
     "react-native-view-pdf": "^0.14.0",
     "react-native-web": "~0.18.10",
-    "rn-nodeify": "^10.3.0"
+    "rn-fetch-blob": "^0.12.0",
+    "rn-nodeify": "^10.3.0",
+    "expo-sharing": "~11.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

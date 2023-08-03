@@ -1,16 +1,19 @@
 import React, { useState,useEffect } from 'react';
-import { View, FlatList ,Text,Image,Button,TextInput,TouchableOpacity} from 'react-native';
+import { View, FlatList ,Text,Image,Button,TextInput,TouchableOpacity,Platform} from 'react-native';
 import { Link, useRoute } from "@react-navigation/native"
 import axios from "axios";
 import { Linking } from 'react-native';
 import { baseUlr } from "../config";
-import * as FileSystem from 'expo-file-system';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import LikeButton from '../Components/LikeButton';
 import StarRating from '../Components/StarRating';
 import { UserContext } from "../Auntentikacija/UserContext";
 import { useContext } from "react";
 import AddToFavoritesButton from '../Components/AddToFavoritesButton';
+import * as FileSystem from 'expo-file-system';
+import { shareAsync } from 'expo-sharing';
+
+
 // Additional imports if needed
 function SingleBook({navigation,route})  {
     
@@ -131,19 +134,70 @@ const com={
           SetCheck(!check)
           SetComment("")
         })
-
-
-
-
     }
-   
-         
-      
-
-     
   }
-    async function downloadBook(url) {
-      const fileUrl = baseUlr + url;
+
+
+
+
+
+  const downloadBook = async (fileURL,filename) => {
+
+
+    //console.log("Downloaded file:"+fileURL)
+    let LocalPath = FileSystem.documentDirectory +filename;
+   const result= await FileSystem.downloadAsync(fileURL, LocalPath)
+   console.log("Uriiil:"+result.uri)
+   //Linking.openURL(result.uri)
+      //.then(({uri}) => Linking.openURL(uri));
+
+      save(result.uri, filename,".pdf");
+
+
+
+   
+  };
+
+  const save = async (uri, filename, mimetype) => {
+
+console.log("Uri:"+uri)
+console.log("Filename:"+filename)
+console.log("Mimetype"+mimetype)
+
+
+
+    if (Platform.OS === "android") {
+      const permissions = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync();
+      if (permissions.granted) {
+        const base64 = await FileSystem.readAsStringAsync(uri, { encoding: FileSystem.EncodingType.Base64 });
+        await FileSystem.StorageAccessFramework.createFileAsync(permissions.directoryUri, filename, mimetype)
+          .then(async (uri) => {
+            await FileSystem.writeAsStringAsync(uri, base64, { encoding: FileSystem.EncodingType.Base64 });
+          })
+          .catch(e => console.log(e));
+      } else {
+        shareAsync(uri);
+      }
+    } else {
+      shareAsync(uri);
+    }
+  };
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+   /* async function downloadBook(url) {
+      const fileUrl = url;
   
       try {
         const downloadDest = `${FileSystem.documentDirectory}book.pdf`;
@@ -163,7 +217,7 @@ const com={
         console.log('Download error:', error);
         // Handle download error
       }
-    }
+    }*/
     const data = [
       { id: 1, title: 'Item 1' },
       { id: 2, title: 'Item 2' },
@@ -192,7 +246,7 @@ const com={
           <Text>{book.name}</Text>
     
  
-<Button   onPress={()=>downloadBook(book.urlBook)}  title={"Skini knjigu"} ></Button>
+<Button   onPress={()=>downloadBook(book.urlBook.toString(),book.name+".pdf")}  title={"Skini knjigu"} ></Button>
 <LikeButton  likeCount={likes} bookIdd={route.params?.idBook} userIdd={user?.userId} isLikedd={isLiked} 
 setLikess={setLikes} setIsLikedd={setIsLiked}
 />
