@@ -108,36 +108,48 @@ console.log(file.mimeType)
 
 
 
-  
-const im=await uploadFileToFirebase(uriImage,nameImage,"image")
-const pd=await uploadFileToFirebase(uriBook,nameBook1,"pdf")
-
-console.log(imageBook+"immmmmmmmmmmmm")
-console.log(pdfBook+"dddddddddddddddddddddddddd")
-
-  console.log("ovde sammmmmmmm")
- 
-  const book={
-    id:0,
-    userId:user.UserId,
-    categoryId:0,
-    name:nameBook,
-    urlImage:im,
-    urlBook:pd,
-    likes:0
+  if(uriImage && uriBook && nameBook)
+  {
+    const im=await uploadFileToFirebase(uriImage,nameImage,"image")
+    const pd=await uploadFileToFirebase(uriBook,nameBook1,"pdf")
+    
+    
+    console.log(im+"/////////")
+    console.log(pd+"----------")
+    console.log(imageBook+"immmmmmmmmmmmm")
+    console.log(pdfBook+"dddddddddddddddddddddddddd")
+    
+      console.log("ovde sammmmmmmm")
+     
+      const book={
+        id:0,
+        userId:user.UserId,
+        categoryId:0,
+        name:nameBook,
+        urlImage:im,
+        urlBook:pd,
+        likes:0
+    
+      }
+      
+      
+      
+        axios
+        .post(baseUlr+"addBook",book)
+        .then((response) => {
+           console.log(response)
+            
+        });
+      SetBookListCheck(true)
+    setSuccess(true)
+    setGlobalWarning(false)
 
   }
-  
-  
-  
-    axios
-    .post(baseUlr+"addBook",book)
-    .then((response) => {
-       console.log(response)
-        
-    });
-  SetBookListCheck(true)
-setSuccess(true)
+else
+{
+  setGlobalWarning(true)
+  setSuccess(false)
+}
 
   
 
