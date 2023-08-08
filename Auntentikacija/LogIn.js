@@ -1,12 +1,13 @@
 
 import React, {  useState } from "react";
-import { Button, StyleSheet, TextInput,Text,View,TouchableOpacity} from "react-native";
+import { Button, StyleSheet, TextInput,Text,View,TouchableOpacity,Image} from "react-native";
 import BookList from "../Pages/BookList";
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { baseUlr } from "../config";
 import { UserContext } from "../Auntentikacija/UserContext";
 import { useContext } from "react";
+import Icon from 'react-native-vector-icons/FontAwesome';
 function Login  ({ navigation })  {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -55,33 +56,113 @@ function Login  ({ navigation })  {
     
   }
   return (
-    <View  >
-      <TextInput
-        style={styles.input}
-        value={username}
-        placeholder={"Username"}
-        onChangeText={(text) =>{setUsername(text), setWarning(null)}}
-        autoCapitalize={"none"}
-      />
-      <View  style={styles.inputContainer}  >
-      <TextInput
-        style={styles.input}
-        value={password}
-        placeholder={"Password"}
-        secureTextEntry={!showPassword}
-        onChangeText={(text) => {setPassword(text),setWarning(null)}}
-      />
-       <TouchableOpacity style={styles.toggleButton} onPress={toggleShowPassword}>
-        <Text>{showPassword ? 'Hide' : 'Show'}</Text>
-      </TouchableOpacity>
+    <>
+
+
+
+    <View style={styles.container}>
+    <View style={{alignItems: 'center'}}>
+              <Icon
+                 name={'eye'}
+                style={{
+                  width: '80%',
+                  height: 100,
+                  resizeMode: 'contain',
+                  margin: 30,
+                }}
+              />
+            </View>
+        <TextInput
+          style={styles.input}
+          value={username}
+          placeholder={"Username"}
+          onChangeText={(text) =>{setUsername(text), setWarning(null)}}
+          autoCapitalize="none"
+          placeholderTextColor='white'
+         
+        />
+        <View>
+        <TextInput
+          style={styles.input}
+          value={password}
+          placeholder={"Password"}
+          secureTextEntry={!showPassword}
+          onChangeText={(text) => {setPassword(text),setWarning(null)}}
+          autoCapitalize="none"
+          placeholderTextColor='white'          
+        />
+        
+         <TouchableOpacity
+                  activeOpacity={0.8}
+                  style={styles.visibilityBtn}
+                  onPress={toggleShowPassword}>
+                    <Icon
+          name={showPassword  ? 'eye-slash' : 'eye'}
+          size={24}
+          color="black"
+        />
+                 
+                </TouchableOpacity>
+                </View>
+                
+       
+        <Button
+           onPress={onPressHandler} title={"Ulogujte se"} 
+          />
+          {  warning !=null?<Text  style={styles.warning}>{warning}</Text>:""}
       </View>
-      <Button   onPress={onPressHandler} title={"Ulogujte se"}  />
-      {  warning !=null?<Text  style={styles.warning}>{warning}</Text>:""}
-    </View>
+    </>
   );
 };
 
+
+
 const styles = StyleSheet.create({
+  input: {
+    width: 350,
+    height: 55,
+    backgroundColor: '#42A5F5',
+    margin: 10,
+    padding: 8,
+    color: 'white',
+    borderRadius: 14,
+    fontSize: 18,
+    fontWeight: '500',
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+visibilityBtn: {
+    position: 'absolute',
+    right: 14,
+    height: 25,
+    width: 25,
+    padding: 0,
+    marginTop: 25,
+  },
+  warning: {
+    height: 40,
+    marginBottom: 10,
+    backgroundColor: 'red',
+  },
+imgBtn:{
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center'
+},
+
+})
+
+
+
+
+
+
+
+
+/*const styles = StyleSheet.create({
   input: {
     height: 40,
     marginBottom: 10,
@@ -117,6 +198,6 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: 10,
   },
-});
+});*/
 
 export default Login

@@ -1,8 +1,9 @@
 
 import React, {  useState } from "react";
-import { Button, StyleSheet, TextInput,Text,View,TouchableOpacity} from "react-native";
+import { Button, StyleSheet, TextInput,Text,View,TouchableOpacity,Image} from "react-native";
 import axios from "axios";
 import { baseUlr } from "../config";
+import Icon from 'react-native-vector-icons/FontAwesome';
 function Register ({ navigation })  {
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
@@ -75,31 +76,47 @@ setGlobalWarning(true)
   }
   return (
     <>
-     <TextInput
-        style={styles.input}
-        value={name}
-        placeholder={"Name"}
-        onChangeText={(text) => {
-        
-          if(text.length<3)
-          {
-            setNameWarning(true)
-            
-          }
-          else
-          {
-            setNameWarning(false)
-          }
-          
-          setName(text)
-          setSuccess(false)
-          setGlobalWarning(false)
-          setAlredyExist(false)
-          }}
-        autoCapitalize={"none"}
-      />
-      {  nameWarning ==true?<Text  style={styles.warning}>Ime mora imati najmanje tri slova</Text>:""}
-      <TextInput
+
+
+      <View style={styles.container}>
+      <View style={{alignItems: 'center'}}>
+    <Icon
+                 name={'eye'}
+                style={{
+                  width: '50%',
+                  height: 100,
+                  resizeMode: 'contain',
+                  margin: 30,
+                }}
+              />
+            </View>
+        <TextInput
+           style={styles.input}
+           value={name}
+           placeholder={"Name"}
+           onChangeText={(text) => {
+           
+             if(text.length<3)
+             {
+               setNameWarning(true)
+               
+             }
+             else
+             {
+               setNameWarning(false)
+             }
+             
+             setName(text)
+             setSuccess(false)
+             setGlobalWarning(false)
+             setAlredyExist(false)
+             }}
+           autoCapitalize={"none"}
+          placeholderTextColor='white'
+         
+        />
+          {  nameWarning ==true?<Text  style={styles.warning}>Ime mora imati najmanje tri slova</Text>:""}
+        <TextInput
         style={styles.input}
         value={surname}
         placeholder={"Surname"}
@@ -121,60 +138,70 @@ setGlobalWarning(true)
           setGlobalWarning(false)
           setAlredyExist(false)
         }}
-      />
-      {  surnNameWarning ==true?<Text  style={styles.warning}>Prezime mora imati najmanje tri slova</Text>:""}
-      <TextInput
-        style={styles.input}
-        value={username}
-        placeholder={"Username"}
-        onChangeText={(text) => {
-          if(text.length<3)
-          {
-            setUsernameWarning(true)
-            
-          }
-          else
-          {
-            setUsernameWarning(false)
-          }
+         placeholderTextColor='white'
           
-          setUsername(text)
-          setSuccess(false)
-          setGlobalWarning(false)
-          setAlredyExist(false)
-        }}
-        autoCapitalize={"none"}
-      />
-     
-      {  usernameWarning ==true?<Text  style={styles.warning}>Korisnicko ime mora imati najmanje tri slova</Text>:""}
-      <View style={styles.inputContainer} >
-      <TextInput
-        style={styles.input}
-        value={password}
-        placeholder={"Password"}
-        secureTextEntry={!showPassword}
-        onChangeText={(text) =>{
-          if(text.length<3)
-          {
-            setPasswordWarning(true)
-            
-          }
-          else
-          {
-            setPasswordWarning(false)
-          }
-          setSuccess(false)
-          setGlobalWarning(false)
-          setAlredyExist(false)
-          setPassword(text)}}
-      />
-      <TouchableOpacity style={styles.toggleButton} onPress={toggleShowPassword}>
-        <Text>{showPassword ? 'Hide' : 'Show'}</Text>
-      </TouchableOpacity>
-      </View>
-      {  passwordWarning ==true?<Text  style={styles.warning}>Lozinka mora imati makar tri karaktera</Text>:""}
-      <View style={styles.inputContainer} >
-      <TextInput
+        />
+         {  surnNameWarning ==true?<Text  style={styles.warning}>Prezime mora imati najmanje tri slova</Text>:""}
+        <TextInput
+         style={styles.input}
+         value={username}
+         placeholder={"Username"}
+         onChangeText={(text) => {
+           if(text.length<3)
+           {
+             setUsernameWarning(true)
+             
+           }
+           else
+           {
+             setUsernameWarning(false)
+           }
+           
+           setUsername(text)
+           setSuccess(false)
+           setGlobalWarning(false)
+           setAlredyExist(false)
+         }}
+         autoCapitalize={"none"}
+         placeholderTextColor='white'
+        />
+        {  usernameWarning ==true?<Text  style={styles.warning}>Korisnicko ime mora imati najmanje tri slova</Text>:""}
+        <View>
+        <TextInput
+          style={styles.input}
+          value={password}
+          placeholder={"Password"}
+          secureTextEntry={!showPassword}
+          onChangeText={(text) =>{
+            if(text.length<3)
+            {
+              setPasswordWarning(true)
+              
+            }
+            else
+            {
+              setPasswordWarning(false)
+            }
+            setSuccess(false)
+            setGlobalWarning(false)
+            setAlredyExist(false)
+            setPassword(text)}}
+            placeholderTextColor='white'
+        />
+         <TouchableOpacity
+                  activeOpacity={0.8}
+                  style={styles.visibilityBtn}
+                  onPress={toggleShowPassword}>
+                    <Icon
+          name={showPassword  ? 'eye-slash' : 'eye'}
+          size={24}
+          color="black"
+        />
+                </TouchableOpacity>
+                </View>
+         {  passwordWarning ==true?<Text  style={styles.warning}>Lozinka mora imati makar tri karaktera</Text>:""}
+         <View>
+         <TextInput
         style={styles.input}
         value={confirmPassword}
         placeholder={"Confirm password"}
@@ -192,23 +219,105 @@ setGlobalWarning(true)
           setGlobalWarning(false)
           setAlredyExist(false)
           setConfirmPassword(text)}}
+          placeholderTextColor='white'
       />
-      <TouchableOpacity style={styles.toggleButton} onPress={toggleShowPassword2}>
-        <Text>{showPassword2 ? 'Hide' : 'Show'}</Text>
-      </TouchableOpacity>
-      </View>
-      {  confirmPasswordWarning ==true?<Text  style={styles.warning}>Lozinke se moraju podudarati</Text>:""}
-      <Button   onPress={onPressHandler} title={"Registrujte se"}  />
-      {  globalWarning ==true?<Text  style={styles.warning}>Unesite ispravno podatke</Text>:""}
+      <TouchableOpacity
+                  activeOpacity={0.8}
+                  style={styles.visibilityBtn}
+                  onPress={toggleShowPassword2}>
+                    <Icon
+          name={showPassword2  ? 'eye-slash' : 'eye'}
+          size={24}
+          color="black"
+        />
+                </TouchableOpacity>
+                </View>
+       {  confirmPasswordWarning ==true?<Text  style={styles.warning}>Lozinke se moraju podudarati</Text>:""}
+        <Button
+           onPress={onPressHandler} title={"Registrujte se"} 
+          />
+ {  globalWarning ==true?<Text  style={styles.warning}>Unesite ispravno podatke</Text>:""}
       {  alredyExist ==true?<Text  style={styles.warning}>Kornisnik sa ovim korisnickim imenom vec postoji</Text>:""}
 
       {  success ==true?<Text  style={styles.success}>Uspesno ste se registrovali</Text>:""}
+      </View>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     </>
   );
 };
 
+
+
+
 const styles = StyleSheet.create({
+  input: {
+    width: 350,
+    height: 55,
+    backgroundColor: '#42A5F5',
+    margin: 10,
+    padding: 8,
+    color: 'white',
+    borderRadius: 14,
+    fontSize: 18,
+    fontWeight: '500',
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  visibilityBtn: {
+    position: 'absolute',
+    right: 14,
+    height: 25,
+    width: 25,
+    padding: 0,
+    marginTop: 25,
+  },
+  warning: {
+    height: 40,
+    marginBottom: 10,
+    backgroundColor: 'red',
+  },
+imgBtn:{
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center'
+},
+
+
+
+})
+
+
+
+
+
+
+
+/*const styles = StyleSheet.create({
   input: {
     height: 40,
     marginBottom: 10,
@@ -234,6 +343,6 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: 10,
   },
-});
+});*/
 
 export default Register

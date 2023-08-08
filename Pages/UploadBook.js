@@ -5,6 +5,7 @@ import axios from 'axios';
 import { UserContext } from "../Auntentikacija/UserContext";
 import { useContext } from "react";
 import { baseUlr } from "../config";
+import Icon from 'react-native-vector-icons/FontAwesome';
 //import firebase from 'firebase/app';
 
 //import firebase from "firebase";
@@ -170,8 +171,21 @@ else
 
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      {  image!=null? <Image source={{ uri: image }} style={styles.image} />:console.log(image)}
+    <>
+    <View   style={styles.container} >
+      
+    <View style={{alignItems: 'center'}}>
+    <Icon
+                 name={'eye'}
+                style={{
+                  width: '50%',
+                  height: 100,
+                  resizeMode: 'contain',
+                  margin: 30,
+                }}
+              />
+            </View>
+            
 
       <Button title="Upload Image" onPress={() =>handleFileUpload('image/*')} />
       <Text    >Slika je obavezna</Text>
@@ -197,12 +211,14 @@ setNameWarning(true)
           setNameBook(text)
          }
         }
+        placeholderTextColor='white'
       />
       { /* nameWarning ==true?<Text  style={styles.warning}>Unesite ime knjige</Text>:""*/}
       {  globalWarning ==true?<Text  style={styles.warning}>Unesite sve podatke</Text>:""}
       {  success ==true?<Text  style={styles.success}>Uspesno ste uneli knigu</Text>:""}
        <Button title="Unesite knjigu" onPress={UploadBooks} />
     </View>
+    </>
   );
 };
 
@@ -240,5 +256,21 @@ const styles = {
     height: 40,
     marginBottom: 10,
     backgroundColor: 'green',
+  },
+  input: {
+    width: 350,
+    height: 55,
+    backgroundColor: '#42A5F5',
+    margin: 10,
+    padding: 8,
+    color: 'white',
+    borderRadius: 14,
+    fontSize: 18,
+    fontWeight: '500',
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 };
