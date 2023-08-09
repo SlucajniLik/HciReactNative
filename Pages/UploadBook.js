@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Button,Image,Text,TextInput } from 'react-native';
+import { View, Button,Image,Text,TextInput,ActivityIndicator } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
 import axios from 'axios';
 import { UserContext } from "../Auntentikacija/UserContext";
@@ -213,6 +213,7 @@ setNameWarning(true)
         }
         placeholderTextColor='white'
       />
+         <ActivityIndicator/>
       { /* nameWarning ==true?<Text  style={styles.warning}>Unesite ime knjige</Text>:""*/}
       {  globalWarning ==true?<Text  style={styles.warning}>Unesite sve podatke</Text>:""}
       {  success ==true?<Text  style={styles.success}>Uspesno ste uneli knigu</Text>:""}
@@ -271,6 +272,7 @@ const styles = {
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: "#1E1B26",
   },
 };

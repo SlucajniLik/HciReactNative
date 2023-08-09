@@ -88,17 +88,23 @@ axios
 
   
   return (
-    <>
-      <TextInput
-        style={styles.input}
-        value={bookS}
-        placeholder={"Search"}
-       
-        onChangeText={(text) => SetBookS(text)}
+    <View style={styles.MainContainer}>
+    <View style={styles.header}>
+  <TextInput
+    placeholder={"Search..."}
+    style={styles.input}
+    value={bookS}
+    onChangeText={(text) => SetBookS(text)}
+    onChange={SearchText}
 
-        onChange={SearchText}
-      />
 
+
+  />
+  <Button
+    title="Search"
+    onPress={SearchText}
+  />
+</View>
 <Button  onPress={SortText}     title={sort}  ></Button>
 <Text>Search</Text>
 
@@ -112,16 +118,41 @@ axios
       <Book  data={data}       navigation={navigation}></Book>
       
     
-    </>
+    </View>
   );
 };
 
-const styles = StyleSheet.create({
-  input: {
-    height: 40,
-    marginBottom: 10,
-    backgroundColor: '#fff',
+const styles={
+
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
   },
-});
+  input: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: "gainsboro",
+    borderRadius: 5,
+    padding: 10,
+    marginVertical: 5,
+  },
+  MainContainer: 
+  {
+  
+ 
+  backgroundColor: "#1E1B26",
+   
+  }
+
+
+
+}
+
+
+
+
+
+
+
 
 export default FavoriteBooks

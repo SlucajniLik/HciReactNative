@@ -20,6 +20,8 @@ const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
 import SingleBook from '../Pages/SingleBook';
 import Tabs from './Tabs';
+
+import { SafeAreaView } from 'react-native-safe-area-context';
 function AppNav() {
 
 const {SetUser,user,SetUserToken,userToken}=useContext(UserContext)
@@ -63,12 +65,12 @@ axios.defaults.headers.common['Authorization']="Bearer "+token
 
  
   return (
-    <>
-    
-    <NavigationContainer >
-            <Stack.Navigator
+        
+    <NavigationContainer  >
+            <Stack.Navigator  
                 screenOptions={{
-                    headerShown: false
+                    headerShown: false,
+                    
                 }}
                 initialRouteName={'Home'}
             >
@@ -79,10 +81,18 @@ axios.defaults.headers.common['Authorization']="Bearer "+token
                 <Stack.Screen name="SingleBook" component={SingleBook}  options={{ headerShown: false }} />
             </Stack.Navigator>
         </NavigationContainer>
-</>
     
   )
 }
+
+
+
+const styles = 
+  {
+   
+  
+   
+  };
 
 export default AppNav;
 

@@ -303,7 +303,7 @@ export default SingleBook;
 const styles = {
   wrapper: {
     flex: 1,
-    backgroundColor: 'yellow',
+    backgroundColor: "#1E1B26",
   },
   bookContainer: {
     flexDirection: 'row',

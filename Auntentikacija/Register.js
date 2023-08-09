@@ -1,6 +1,6 @@
 
 import React, {  useState } from "react";
-import { Button, StyleSheet, TextInput,Text,View,TouchableOpacity,Image} from "react-native";
+import { Button, StyleSheet, TextInput,Text,View,TouchableOpacity,Image,ActivityIndicator} from "react-native";
 import axios from "axios";
 import { baseUlr } from "../config";
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -79,6 +79,7 @@ setGlobalWarning(true)
 
 
       <View style={styles.container}>
+        
       <View style={{alignItems: 'center'}}>
     <Icon
                  name={'eye'}
@@ -233,6 +234,10 @@ setGlobalWarning(true)
                 </TouchableOpacity>
                 </View>
        {  confirmPasswordWarning ==true?<Text  style={styles.warning}>Lozinke se moraju podudarati</Text>:""}
+      
+
+     <ActivityIndicator/>
+
         <Button
            onPress={onPressHandler} title={"Registrujte se"} 
           />
@@ -286,7 +291,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: "#1E1B26",
   },
   visibilityBtn: {
     position: 'absolute',

@@ -10,7 +10,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import BookList from './Pages/BookList';
 import AppNav from './Auntentikacija/AppNav';
 import { UserContext } from './Auntentikacija/UserContext';
-
+import { Button, StyleSheet, TextInput,View } from "react-native";
 import axios from 'axios';
 import { baseUlr } from './config';
 // const Tab = createBottomTabNavigator();
@@ -28,8 +28,9 @@ const [booListCheck,SetBookListCheck]=useState(false)
 
 
   return (
+
  <UserContext.Provider value={{SetUser,user,SetUserToken,userToken,sharedCheck,SetSharedCheck,booListCheck,SetBookListCheck}}>
-<AppNav/>
+<AppNav     />
  </UserContext.Provider>
 
  
@@ -39,5 +40,14 @@ const [booListCheck,SetBookListCheck]=useState(false)
   )
 }
 
+const styles={
+MainContainer: 
+{
+
+
+backgroundColor: "#1E1B26",
+ 
+}
+}
 export default App;
 
