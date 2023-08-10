@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import { View, FlatList ,Text,Image,Button,TextInput,TouchableOpacity,Platform} from 'react-native';
+import { View, FlatList ,Text,Image,Button,TextInput,TouchableOpacity,Platform,Pressable} from 'react-native';
 import { Link, useRoute } from "@react-navigation/native"
 import axios from "axios";
 import { Linking } from 'react-native';
@@ -225,9 +225,9 @@ console.log("Mimetype"+mimetype)
       // Add more items as needed
     ]; 
     const renderItem = ({ item }) => (
-      <View style={styles.item}>
-        <Text>{item.username}</Text>
-        <Text>{item.text}</Text>
+      <View   style={styles.mainCom} >
+        <Text   style={styles.userTex}   >{item.username}</Text>
+        <Text   style={styles.comTex}  >{item.text}</Text>
       </View>
     );
 
@@ -236,9 +236,77 @@ console.log("Mimetype"+mimetype)
       console.log('Selected Rating:', rating);
     };
   return (
-   <>
-   
-                   
+
+<>
+
+<View style={styles.contentContainer}>
+<Pressable
+  style={styles.goBack}
+  onPress={() => navigation.goBack()}
+>
+  <Text style={styles.buttonText}>{'Vrati se nazad'}</Text>
+</Pressable>
+
+<Image  source={{uri: book.urlImage}}  style={styles.image}/>
+<Text>Naziv knjige:{book.name}</Text>
+<Pressable
+  style={styles.button}
+  onPress={()=>downloadBook(book.urlBook.toString(),book.name+".pdf")} 
+>
+  <Text style={styles.buttonText}>{"Skini knjigu"}</Text>
+</Pressable>
+
+
+
+<LikeButton  likeCount={likes} bookIdd={route.params?.idBook} userIdd={user?.userId} isLikedd={isLiked} 
+setLikess={setLikes} setIsLikedd={setIsLiked}
+/>
+<StarRating maxStars={5} starss={stars} setStarss={setStars}    onPress={handleRating}
+userIdd={user?.userId} bookIdd={route.params?.idBook}
+/>
+<AddToFavoritesButton     isFavoritt={isFavorit} setIsFavoritt={setIsFavorit}  userIdd={user?.userId} bookIdd={route.params?.idBook} />
+
+
+</View>
+<TextInput
+        style={styles.input}
+        value={comment}
+        placeholder={"Add comment"}
+        onChangeText={(text) => SetComment(text)}
+        autoCapitalize={"none"}
+        onKeyPress={WriteComment}
+      />
+
+
+
+
+
+<View style={styles.container}>
+      <FlatList
+        data={commentData
+        }
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id.toString()}
+      />
+    </View>
+        </>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+   /*<>         
     <View style={styles.wrapper}>
       
            <Image  source={{uri: book.urlImage}}  style={styles.image}/>
@@ -287,9 +355,81 @@ userIdd={user?.userId} bookIdd={route.params?.idBook}
       />
     </View>
 
-   </>   
+   </>   */
         )}
     
+
+        const styles = {
+          container: {
+            flexDirection: "row",
+            marginVertical: 10,
+          },
+          image: {
+            flex: 1,
+            aspectRatio: 2 / 3,
+            marginRight: 10,
+            borderRadius:25
+          },
+          contentContainer: {
+            flex: 1,
+            flexDirection: "column",
+            justifyContent:"space-around",
+            alignItems:"center",
+            borderColor: "lightgray",
+            borderBottomWidth: 3,
+         
+            marginTop:"auto"
+          },
+          title: {
+            fontSize: 16,
+            fontWeight: "500",
+          },
+          button:{
+        backgroundColor:"green",
+        alignSelf:"center",
+        marginTop:"auto",
+        marginVertical:10,
+        padding:7,
+        paddingHorizontal:15,
+        borderRadius:5
+          }
+          ,
+          buttonText:{
+          color:"white",
+          fontWeight:"600"
+          },
+          goBack:{
+            backgroundColor:"green",
+            alignSelf:"flex-start",
+            marginTop:"auto",
+            marginVertical:10,
+            padding:7,
+            paddingHorizontal:15,
+            borderRadius:5
+              },
+              mainCom:
+              {
+                
+              }
+              ,
+              userTex:{
+                fontWeight: 'bold',
+                alignSelf:"flex-start",
+              },
+              comTex:{
+                marginLeft:30
+              }
+        };
+        
+
+
+
+
+
+
+
+
+
 
 
 
@@ -300,10 +440,10 @@ userIdd={user?.userId} bookIdd={route.params?.idBook}
 
 export default SingleBook;
 
-const styles = {
+/*const styles = {
   wrapper: {
     flex: 1,
-    backgroundColor: "#1E1B26",
+    backgroundColor: "white",
   },
   bookContainer: {
     flexDirection: 'row',
@@ -321,4 +461,4 @@ const styles = {
     marginBottom: 10,
     backgroundColor: '#fff',
   },
-};
+};*/

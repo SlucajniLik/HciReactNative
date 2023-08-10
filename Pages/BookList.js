@@ -102,7 +102,7 @@ axios
 
   
   return (
-    <View  style={styles.MainContainer} >
+    <View  >
 <View style={styles.header}>
   <TextInput
     placeholder={"Search..."}
@@ -114,10 +114,7 @@ axios
 
 
   />
-  <Button
-    title="Search"
-    onPress={SearchText}
-  />
+ <Button  onPress={SortText}     title={sort}  ></Button>
 </View>
 
 
@@ -133,14 +130,14 @@ axios
 
       
 
-<Button  onPress={SortText}     title={sort}  ></Button>
-<Text>Search</Text>
+
+
 
 
 
       <Button   onPress={LogOut} title={"Odjavite se "+ (user?.userId)}  />
-      <Text>AAAAAA</Text>
-      <Button  onPress={onPressHandler} title={"Pogledaj detalje"}></Button>
+     
+  
      
       
       <Book  data={data}   navigation={navigation}></Book>

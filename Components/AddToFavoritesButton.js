@@ -52,7 +52,7 @@ SetSharedCheck(!sharedCheck)
 
   return (
     <TouchableOpacity style={styles.buttonContainer} onPress={handleToggleFavorite}>
-      <Ionicons name={isFavoritt ? 'heart' : 'heart-outline'} size={24} color={isFavorite ? 'red' : 'black'} />
+      <Ionicons name={isFavoritt ? 'heart' : 'heart-outline'} size={24} color={isFavoritt  ? 'red' : 'gray'} />
       <Text style={styles.buttonText}>{isFavoritt ? 'Remove from Favorites' : 'Add to Favorites'}</Text>
     </TouchableOpacity>
   );
@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     borderColor: '#ccc',
+    backgroundColor:"green"
   },
   buttonText: {
     marginLeft: 5,

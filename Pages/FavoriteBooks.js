@@ -88,7 +88,7 @@ axios
 
   
   return (
-    <View style={styles.MainContainer}>
+    <View >
     <View style={styles.header}>
   <TextInput
     placeholder={"Search..."}
@@ -100,13 +100,9 @@ axios
 
 
   />
-  <Button
-    title="Search"
-    onPress={SearchText}
-  />
+ <Button  onPress={SortText}     title={sort}  ></Button>
 </View>
-<Button  onPress={SortText}     title={sort}  ></Button>
-<Text>Search</Text>
+
 
 
 

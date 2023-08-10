@@ -72,6 +72,7 @@ const styles = {
     flex: 1,
     aspectRatio: 2 / 3,
     marginRight: 10,
+    borderRadius:25
   },
   contentContainer: {
     flex: 4,
