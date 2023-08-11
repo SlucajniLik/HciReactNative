@@ -116,7 +116,7 @@ setGlobalWarning(true)
           placeholderTextColor='white'
          
         />
-          {  nameWarning ==true?<Text  style={styles.warning}>Ime mora imati najmanje tri slova</Text>:""}
+          {  nameWarning ==true?<Text  style={styles.warning}>Ime mora imati najmanje tri slova</Text>:<Text></Text>}
         <TextInput
         style={styles.input}
         value={surname}
@@ -142,7 +142,7 @@ setGlobalWarning(true)
          placeholderTextColor='white'
           
         />
-         {  surnNameWarning ==true?<Text  style={styles.warning}>Prezime mora imati najmanje tri slova</Text>:""}
+         {  surnNameWarning ==true?<Text  style={styles.warning}>Prezime mora imati najmanje tri slova</Text>:<Text></Text>}
         <TextInput
          style={styles.input}
          value={username}
@@ -166,7 +166,7 @@ setGlobalWarning(true)
          autoCapitalize={"none"}
          placeholderTextColor='white'
         />
-        {  usernameWarning ==true?<Text  style={styles.warning}>Korisnicko ime mora imati najmanje tri slova</Text>:""}
+        {  usernameWarning ==true?<Text  style={styles.warning}>Korisnicko ime mora imati najmanje tri slova</Text>:<Text></Text>}
         <View>
         <TextInput
           style={styles.input}
@@ -200,7 +200,7 @@ setGlobalWarning(true)
         />
                 </TouchableOpacity>
                 </View>
-         {  passwordWarning ==true?<Text  style={styles.warning}>Lozinka mora imati makar tri karaktera</Text>:""}
+         {  passwordWarning ==true?<Text  style={styles.warning}>Lozinka mora imati makar tri karaktera</Text>:<Text></Text>}
          <View>
          <TextInput
         style={styles.input}
@@ -233,7 +233,7 @@ setGlobalWarning(true)
         />
                 </TouchableOpacity>
                 </View>
-       {  confirmPasswordWarning ==true?<Text  style={styles.warning}>Lozinke se moraju podudarati</Text>:""}
+       {  confirmPasswordWarning ==true?<Text  style={styles.warning}>Lozinke se moraju podudarati</Text>:<Text></Text>}
       
 
      <ActivityIndicator/>
@@ -241,10 +241,10 @@ setGlobalWarning(true)
         <Button
            onPress={onPressHandler} title={"Registrujte se"} 
           />
- {  globalWarning ==true?<Text  style={styles.warning}>Unesite ispravno podatke</Text>:""}
-      {  alredyExist ==true?<Text  style={styles.warning}>Kornisnik sa ovim korisnickim imenom vec postoji</Text>:""}
+ {  globalWarning ==true?<Text  style={styles.warning}>Unesite ispravno podatke</Text>:<Text></Text>}
+      {  alredyExist ==true?<Text  style={styles.warning}>Kornisnik sa ovim korisnickim imenom vec postoji</Text>:<Text></Text>}
 
-      {  success ==true?<Text  style={styles.success}>Uspesno ste se registrovali</Text>:""}
+      {  success ==true?<Text  style={styles.success}>Uspesno ste se registrovali</Text>:<Text></Text>}
       </View>
 
 

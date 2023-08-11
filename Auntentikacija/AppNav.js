@@ -22,6 +22,7 @@ import SingleBook from '../Pages/SingleBook';
 import Tabs from './Tabs';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Button, StyleSheet, TextInput,View } from "react-native";
 function AppNav() {
 
 const {SetUser,user,SetUserToken,userToken}=useContext(UserContext)
@@ -75,10 +76,25 @@ axios.defaults.headers.common['Authorization']="Bearer "+token
                 initialRouteName={'Home'}
             >
                 {/* Tabs */}
-                <Stack.Screen name="Home" component={Tabs} />
+                <Stack.Screen name="Home" component={Tabs}    
+                 options={{
+                  headerTitle: (props) => <LogoTitle {...props} />,
+                  headerRight: () => (
+                    <Button
+                      onPress={() => alert('This is a button!')}
+                      title="Info"
+                      color="red"
+                    />
+                  ),
+                }}
+               />
 
                 {/* Screens */}
-                <Stack.Screen name="SingleBook" component={SingleBook}  options={{ headerShown: false }} />
+                <Stack.Screen name="SingleBook" component={SingleBook} 
+                
+                
+                
+                options={{ headerShown: false }} />
             </Stack.Navigator>
         </NavigationContainer>
     

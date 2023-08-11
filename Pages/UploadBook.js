@@ -171,9 +171,8 @@ else
 
 
   return (
-    <>
+    
     <View   style={styles.container} >
-      
     <View style={{alignItems: 'center'}}>
     <Icon
                  name={'eye'}
@@ -185,8 +184,6 @@ else
                 }}
               />
             </View>
-            
-
       <Button title="Upload Image" onPress={() =>handleFileUpload('image/*')} />
       <Text    >Slika je obavezna</Text>
       <Button title="Upload book" onPress={() =>handleFileUpload('application/pdf')} />
@@ -215,11 +212,11 @@ setNameWarning(true)
       />
          <ActivityIndicator/>
       { /* nameWarning ==true?<Text  style={styles.warning}>Unesite ime knjige</Text>:""*/}
-      {  globalWarning ==true?<Text  style={styles.warning}>Unesite sve podatke</Text>:""}
-      {  success ==true?<Text  style={styles.success}>Uspesno ste uneli knigu</Text>:""}
+      {  globalWarning ==true?<Text  style={styles.warning}>Unesite sve podatke</Text>:<Text></Text>}
+      {  success ==true?<Text  style={styles.success}>Uspesno ste uneli knigu</Text>:<Text></Text>}
        <Button title="Unesite knjigu" onPress={UploadBooks} />
     </View>
-    </>
+    
   );
 };
 

@@ -39,7 +39,7 @@ function Login  ({ navigation })  {
           SetUserToken(response.data.token)
           SetUser(response.data)
           axios.defaults.headers.common['Authorization']="Bearer "+response.data.token
-            navigation.navigate('BookList');
+           // navigation.navigate('BookList');
 
            
         }
@@ -109,7 +109,7 @@ function Login  ({ navigation })  {
         <Button
            onPress={onPressHandler} title={"Ulogujte se"} 
           />
-          {  warning !=null?<Text  style={styles.warning}>{warning}</Text>:""}
+          {  warning !=null?<Text  style={styles.warning}>{warning}</Text>:<Text></Text>}
       </View>
     </>
   );

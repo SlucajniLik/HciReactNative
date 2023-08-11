@@ -19,7 +19,7 @@ function BookList  ({ navigation })  {
   const {SetUser,user,SetUserToken,userToken,sharedCheck,SetSharedCheck,booListCheck,SetBookListCheck}=useContext(UserContext)
  
 
-  const SearchText = () => {
+  /*const SearchText = () => {
     axios
     .get(baseUlr+"searchBooks/"+bookS)
     .then((response) => {
@@ -28,7 +28,7 @@ function BookList  ({ navigation })  {
     })
 
    
-    }
+    }*/
 
     const SortText = () => {
       axios
@@ -77,7 +77,7 @@ function BookList  ({ navigation })  {
     SetUserToken(null)
     AsyncStorage.removeItem("user")
     AsyncStorage.removeItem("token")  
-    navigation.navigate('BookList');
+   // navigation.navigate('BookList');
       }
  
  
@@ -108,41 +108,46 @@ axios
     placeholder={"Search..."}
     style={styles.input}
     value={bookS}
-    onChangeText={(text) => SetBookS(text)}
-    onChange={SearchText}
+    onChangeText={(text) => {
+      
+      
+     if(text!="")
+     {
+      axios
+      .get(baseUlr+"searchBooks/"+text)
+      .then((response) => {
+        console.log(response.data)
+        setData(response.data)
+      })
+    }
+    else
+    {
+
+      
+axios
+.get(baseUlr+"getBooks")
+.then((response) => {
+  console.log(response.data)
+ setData(response.data)
+})
+    }
+
+
+
+
+     
+      SetBookS(text)
+     
+  }}
+    //onChange={SearchText}
 
 
 
   />
  <Button  onPress={SortText}     title={sort}  ></Button>
 </View>
-
-
-
-
-
-
-
-
-
-
-
-
-      
-
-
-
-
-
-
       <Button   onPress={LogOut} title={"Odjavite se "+ (user?.userId)}  />
-     
-  
-     
-      
       <Book  data={data}   navigation={navigation}></Book>
-      
-    
     </View>
   );
 };

@@ -20,7 +20,7 @@ function FavoriteBooks  ({ navigation })  {
   const {SetUser,user,SetUserToken,userToken,sharedCheck,SetSharedCheck}=useContext(UserContext)
  
 
-  const SearchText = () => {
+  /*const SearchText = () => {
     axios
     .get(baseUlr+"searchBooksFav/"+user?.userId+"/"+bookS)
     .then((response) => {
@@ -29,7 +29,7 @@ function FavoriteBooks  ({ navigation })  {
     })
 
    
-    }
+    }*/
 
     const SortText = () => {
       axios
@@ -94,8 +94,30 @@ axios
     placeholder={"Search..."}
     style={styles.input}
     value={bookS}
-    onChangeText={(text) => SetBookS(text)}
-    onChange={SearchText}
+    onChangeText={(text) => {
+      if(text!="")
+      {
+      axios
+    .get(baseUlr+"searchBooksFav/"+user?.userId+"/"+text)
+    .then((response) => {
+      console.log(response.data)
+      setData(response.data)
+    })
+  }
+  else{
+    
+axios
+.get(baseUlr+"GetFav/"+user?.userId)
+.then((response) => {
+  console.log(response.data)
+ setData(response.data)
+})
+  }
+      
+      
+      
+      SetBookS(text)}}
+    //onChange={SearchText}
 
 
 
