@@ -188,6 +188,7 @@ else
       <Text    >Slika je obavezna</Text>
       <Button title="Upload book" onPress={() =>handleFileUpload('application/pdf')} />
       <Text>pdf knjiga je obavezna</Text>
+      
       <TextInput
         style={styles.input}
         value={nameBook}

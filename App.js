@@ -13,6 +13,8 @@ import { UserContext } from './Auntentikacija/UserContext';
 import { Button, StyleSheet, TextInput,View } from "react-native";
 import axios from 'axios';
 import { baseUlr } from './config';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+
 // const Tab = createBottomTabNavigator();
 // const Tab = createMaterialBottomTabNavigator();
 const Tab = createMaterialTopTabNavigator();
@@ -28,11 +30,13 @@ const [booListCheck,SetBookListCheck]=useState(false)
 
 
   return (
-
+<SafeAreaProvider>
  <UserContext.Provider value={{SetUser,user,SetUserToken,userToken,sharedCheck,SetSharedCheck,booListCheck,SetBookListCheck}}>
+ <NavigationContainer  >
 <AppNav     />
+</NavigationContainer  >
  </UserContext.Provider>
-
+ </SafeAreaProvider>
  
       
     

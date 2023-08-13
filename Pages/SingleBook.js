@@ -12,6 +12,8 @@ import { useContext } from "react";
 import AddToFavoritesButton from '../Components/AddToFavoritesButton';
 import * as FileSystem from 'expo-file-system';
 import { shareAsync } from 'expo-sharing';
+import { ScrollView } from 'react-native-gesture-handler';
+import { KeyboardAvoidingView } from 'react-native';
 
 
 // Additional imports if needed
@@ -112,7 +114,7 @@ var like={
 
     const WriteComment =async (e) => {
 
-      if(e.nativeEvent.key == "t"){
+      if(e.nativeEvent.key == "Enter"){
         console.log("Enter je stisnut"+comment)
         let userA= await AsyncStorage.getItem("user")
 
@@ -224,7 +226,7 @@ console.log("Mimetype"+mimetype)
       { id: 3, title: 'Item 3' },
       // Add more items as needed
     ]; 
-    const renderItem = ({ item }) => (
+    const renderItem = (item) => (
       <View   style={styles.mainCom} >
         <Text   style={styles.userTex}   >{item.username}</Text>
         <Text   style={styles.comTex}  >{item.text}</Text>
@@ -237,15 +239,10 @@ console.log("Mimetype"+mimetype)
     };
   return (
 
-<>
+<ScrollView>
 
 <View style={styles.contentContainer}>
-<Pressable
-  style={styles.goBack}
-  onPress={() => navigation.goBack()}
->
-  <Text style={styles.buttonText}>{'Vrati se nazad'}</Text>
-</Pressable>
+
 
 <Image  source={{uri: book.urlImage}}  style={styles.image}/>
 <Text>Naziv knjige:{book.name}</Text>
@@ -268,6 +265,7 @@ userIdd={user?.userId} bookIdd={route.params?.idBook}
 
 
 </View>
+<KeyboardAvoidingView></KeyboardAvoidingView>
 <TextInput
         style={styles.input}
         value={comment}
@@ -275,6 +273,7 @@ userIdd={user?.userId} bookIdd={route.params?.idBook}
         onChangeText={(text) => SetComment(text)}
         autoCapitalize={"none"}
         onKeyPress={WriteComment}
+        multiline={true}
       />
 
 
@@ -282,14 +281,16 @@ userIdd={user?.userId} bookIdd={route.params?.idBook}
 
 
 <View style={styles.container}>
-      <FlatList
+
+  {commentData.map(renderItem)}
+      {/* <FlatList
         data={commentData
         }
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
-      />
+      /> */}
     </View>
-        </>
+        </ScrollView>
 
 
 
@@ -361,14 +362,18 @@ userIdd={user?.userId} bookIdd={route.params?.idBook}
 
         const styles = {
           container: {
-            flexDirection: "row",
+            display:"flex",
+            flexDirection: "column",
+            gap: 20,
             marginVertical: 10,
+            paddingHorizontal: 20
           },
           image: {
             flex: 1,
             aspectRatio: 2 / 3,
             marginRight: 10,
-            borderRadius:25
+            borderRadius:25,
+            height:200
           },
           contentContainer: {
             flex: 1,
@@ -409,7 +414,7 @@ userIdd={user?.userId} bookIdd={route.params?.idBook}
               },
               mainCom:
               {
-                
+               
               }
               ,
               userTex:{

@@ -23,8 +23,10 @@ import Tabs from './Tabs';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, StyleSheet, TextInput,View } from "react-native";
+import { Appbar } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 function AppNav() {
-
+  const navigation = useNavigation();
 const {SetUser,user,SetUserToken,userToken}=useContext(UserContext)
 
 
@@ -63,11 +65,38 @@ axios.defaults.headers.common['Authorization']="Bearer "+token
 
 },[])
 
+const LogOut = () => {
+  SetUser(null)
+  SetUserToken(null)
+  AsyncStorage.removeItem("user")
+  AsyncStorage.removeItem("token")  
+ // navigation.navigate('BookList');
+    }
 
  
   return (
         
-    <NavigationContainer  >
+   <>
+
+<Appbar.Header>
+ 
+    <Appbar.Content title="Library" />
+    <Appbar.Action icon="magnify" onPress={() => {}} />
+
+    <Appbar.Action icon="heart" onPress={() => {
+
+
+
+    navigation.navigate("Favorites")
+
+
+
+
+
+    }} />
+    <Appbar.Action icon="logout" onPress={LogOut} />
+
+  </Appbar.Header>
             <Stack.Navigator  
                 screenOptions={{
                     headerShown: false,
@@ -76,6 +105,7 @@ axios.defaults.headers.common['Authorization']="Bearer "+token
                 initialRouteName={'Home'}
             >
                 {/* Tabs */}
+
                 <Stack.Screen name="Home" component={Tabs}    
                  options={{
                   headerTitle: (props) => <LogoTitle {...props} />,
@@ -96,7 +126,7 @@ axios.defaults.headers.common['Authorization']="Bearer "+token
                 
                 options={{ headerShown: false }} />
             </Stack.Navigator>
-        </NavigationContainer>
+       </>
     
   )
 }

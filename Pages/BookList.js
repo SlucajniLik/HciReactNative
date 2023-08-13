@@ -9,6 +9,8 @@ import { baseUlr } from "../config";
 
 import Book from "./Book";
 import { Text } from "react-native-paper";
+
+import { FAB } from 'react-native-paper';
 function BookList  ({ navigation })  {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -102,7 +104,10 @@ axios
 
   
   return (
+    <>
+    
     <View  >
+      
 <View style={styles.header}>
   <TextInput
     placeholder={"Search..."}
@@ -146,9 +151,19 @@ axios
   />
  <Button  onPress={SortText}     title={sort}  ></Button>
 </View>
-      <Button   onPress={LogOut} title={"Odjavite se "+ (user?.userId)}  />
+      
       <Book  data={data}   navigation={navigation}></Book>
+     
     </View>
+    <FAB
+    icon="plus"
+    style={styles.fab}
+    onPress={() => {
+navigation.navigate("UploadBooks")
+
+    }}
+  />
+    </>
   );
 };
 
@@ -162,7 +177,13 @@ axios
 
 
 const styles={
-
+  fab: {
+    position: 'absolute',
+    margin:32 ,
+    right: 0,
+    bottom: 0,
+    zIndex:99999
+  },
   header: {
     flexDirection: "row",
     alignItems: "center",

@@ -21,35 +21,25 @@ const Stack = createStackNavigator();
 import SingleBook from '../Pages/SingleBook';
 function Tabs() {
 
-const {SetUser,user,SetUserToken,userToken}=useContext(UserContext)
+  const { SetUser, user, SetUserToken, userToken } = useContext(UserContext)
 
 
-useEffect(
-()=>
-{
-(
-async ()=>{
+  useEffect(
+    () => {
+      (
+        async () => {
 
 
-let token= await AsyncStorage.getItem("token")
-let userA= await AsyncStorage.getItem("user")
+          let token = await AsyncStorage.getItem("token")
+          let userA = await AsyncStorage.getItem("user")
 
-userA=JSON.parse(userA)
-if(userA)
-{
-console.log(userA.userId+"Navccc")
-SetUser(userA)
-SetUserToken(token)
-axios.defaults.headers.common['Authorization']="Bearer "+token
-}
-
-
-
-
-
-
-
-})()
+          userA = JSON.parse(userA)
+          if (userA) {
+            console.log(userA.userId + "Navccc")
+            SetUser(userA)
+            SetUserToken(token)
+            axios.defaults.headers.common['Authorization'] = "Bearer " + token
+          }
 
 
 
@@ -57,41 +47,49 @@ axios.defaults.headers.common['Authorization']="Bearer "+token
 
 
 
-},[])
+        })()
 
 
- 
+
+
+
+
+
+    }, [])
+
+
+
   return (
     <>
-    
-     { userToken==null ? <Tab.Navigator>
-         <Tab.Screen
+
+      {userToken == null ? <Tab.Navigator>
+        <Tab.Screen
           name="LogIn"
           component={Login}
-          
+
         />
         <Tab.Screen
           name="Register"
           component={Register}
         />
       </Tab.Navigator>
-      :
-      <Tab.Navigator>
-         <Tab.Screen
-          name="BookList"
-          component={BookList}
-        />
+        :
+        <Tab.Navigator>
           <Tab.Screen
-          name="UploadBooks"
-          component={UploadBook}
-        />
-        
-    <Tab.Screen name="Favorites" component={FavoriteBooks}  />
-      </Tab.Navigator>}
-    
-    
-</>
-    
+            name="BookList"
+            component={BookList}
+          />
+          <Tab.Screen
+            name="UploadBooks"
+            component={UploadBook}
+          />
+
+          <Tab.Screen name="Favorites" component={FavoriteBooks} />
+        </Tab.Navigator>}
+
+
+    </>
+
   )
 }
 
