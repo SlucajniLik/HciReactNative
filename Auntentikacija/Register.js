@@ -86,7 +86,7 @@ setGlobalWarning(true)
                 style={{
                   width: '50%',
                   height: 100,
-                  resizeMode: 'contain',
+                  
                   margin: 30,
                 }}
               />

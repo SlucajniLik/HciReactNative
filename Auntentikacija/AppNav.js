@@ -22,7 +22,7 @@ import SingleBook from '../Pages/SingleBook';
 import Tabs from './Tabs';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Button, StyleSheet, TextInput,View } from "react-native";
+import { Button, StyleSheet, TextInput,View,Text } from "react-native";
 import { Appbar } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 function AppNav() {
@@ -78,34 +78,15 @@ const LogOut = () => {
         
    <>
 
-<Appbar.Header>
- 
-    <Appbar.Content title="Library" />
-    <Appbar.Action icon="magnify" onPress={() => {}} />
 
-    <Appbar.Action icon="heart" onPress={() => {
-
-
-
-    navigation.navigate("Favorites")
-
-
-
-
-
-    }} />
-    <Appbar.Action icon="logout" onPress={LogOut} />
-
-  </Appbar.Header>
-            <Stack.Navigator  
+          {  /*  <Stack.Navigator  
                 screenOptions={{
                     headerShown: false,
                     
                 }}
                 initialRouteName={'Home'}
             >
-                {/* Tabs */}
-
+               
                 <Stack.Screen name="Home" component={Tabs}    
                  options={{
                   headerTitle: (props) => <LogoTitle {...props} />,
@@ -119,13 +100,66 @@ const LogOut = () => {
                 }}
                />
 
-                {/* Screens */}
+              
                 <Stack.Screen name="SingleBook" component={SingleBook} 
                 
                 
                 
                 options={{ headerShown: false }} />
-            </Stack.Navigator>
+              </Stack.Navigator>*/}
+<Appbar.Header>
+ 
+ <Appbar.Content title="Library" />
+
+
+ {userToken == null ?<Appbar.Action icon="plus" onPress={() => {
+ navigation.navigate("Register")
+ }} />:<Appbar.Action  />}
+
+
+
+ {userToken != null ?<Appbar.Action icon="heart" onPress={() => {
+ navigation.navigate("Favorites")
+ }} />:<Appbar.Action  />}
+ {userToken != null ?<Appbar.Action icon="logout" onPress={LogOut} />:<Appbar.Action  />}
+
+
+</Appbar.Header>
+{userToken == null ? <Stack.Navigator>
+        <Stack.Screen
+          name="LogIn"
+          component={Login}
+
+        />
+        <Stack.Screen
+          name="Register"
+          component={Register}
+        />
+      </Stack.Navigator>
+        :
+        <Stack.Navigator>
+          <Stack.Screen
+            name="BookList"
+            component={BookList}
+          />
+          <Stack.Screen
+            name="UploadBooks"
+            component={UploadBook}
+          />
+
+          <Stack.Screen name="Favorites" component={FavoriteBooks} />
+          <Stack.Screen name="SingleBook" component={SingleBook}  />
+        </Stack.Navigator>}
+
+
+
+
+
+
+
+
+
+
        </>
     
   )

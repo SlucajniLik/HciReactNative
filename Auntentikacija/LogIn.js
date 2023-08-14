@@ -67,7 +67,7 @@ function Login  ({ navigation })  {
                 style={{
                   width: '80%',
                   height: 100,
-                  resizeMode: 'contain',
+                  
                   margin: 30,
                 }}
               />

@@ -227,7 +227,7 @@ console.log("Mimetype"+mimetype)
       // Add more items as needed
     ]; 
     const renderItem = (item) => (
-      <View   style={styles.mainCom} >
+      <View   style={styles.mainCom}  key={item.id.toString()}  >
         <Text   style={styles.userTex}   >{item.username}</Text>
         <Text   style={styles.comTex}  >{item.text}</Text>
       </View>

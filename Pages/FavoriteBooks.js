@@ -1,6 +1,6 @@
 
 import React, {  useEffect, useState } from "react";
-import { Button, StyleSheet, TextInput,View } from "react-native";
+import { Button, StyleSheet, TextInput,View,TouchableOpacity } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from "axios";
 import { UserContext } from "../Auntentikacija/UserContext";
@@ -9,6 +9,8 @@ import { baseUlr } from "../config";
 
 import Book from "./Book";
 import { Text } from "react-native-paper";
+import { Searchbar } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/FontAwesome';
 function FavoriteBooks  ({ navigation })  {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -18,7 +20,7 @@ function FavoriteBooks  ({ navigation })  {
   const [sort, SetSort] = useState("asc");
   const [check, SetCheck] = useState(false);
   const {SetUser,user,SetUserToken,userToken,sharedCheck,SetSharedCheck}=useContext(UserContext)
- 
+  const [sortb,SetSortb]=useState("sort-asc")
 
   /*const SearchText = () => {
     axios
@@ -38,10 +40,13 @@ function FavoriteBooks  ({ navigation })  {
         console.log(response.data)
         setData(response.data)
         if(sort=="asc")
-        {SetSort("desc")}
+        {SetSort("desc")
+         SetSortb("sort-desc")
+      }
         else if(sort=="desc")
         {
           SetSort("asc")
+           SetSortb("sort-asc")
         }
       })
   
@@ -90,7 +95,7 @@ axios
   return (
     <View >
     <View style={styles.header}>
-  <TextInput
+  <Searchbar
     placeholder={"Search..."}
     style={styles.input}
     value={bookS}
@@ -122,7 +127,16 @@ axios
 
 
   />
- <Button  onPress={SortText}     title={sort}  ></Button>
+  <TouchableOpacity onPress={SortText}    >
+<Icon 
+        name={sortb}
+        
+       
+        size={30}
+      />
+  
+    </TouchableOpacity>
+
 </View>
 
 
