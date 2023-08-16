@@ -122,7 +122,8 @@ userA=JSON.parse(userA)
 const com={
   bookId:route.params?.idBook,
   userId:userA.userId,
-  text:comment
+  text:comment,
+  datum:new Date()
 
 }
 
@@ -227,8 +228,17 @@ console.log("Mimetype"+mimetype)
       // Add more items as needed
     ]; 
     const renderItem = (item) => (
-      <View   style={styles.mainCom}  key={item.id.toString()}  >
-        <Text   style={styles.userTex}   >{item.username}</Text>
+      <View   style={styles.profileContainer}  key={item.id.toString()}  >
+        <Text   style={styles.userTex}   >{item.username } 
+
+        {
+        Math.floor((new Date()-new Date(item.datum))/ (1000 * 60 * 60 * 24))?
+        Math.floor((new Date()-new Date(item.datum))/ (1000 * 60 * 60 * 24))+"days":
+        Math.floor((new Date()-new Date(item.datum))/ (1000 * 60 * 60)%24)?
+        Math.floor((new Date()-new Date(item.datum))/ (1000 * 60 * 60)%24)+"hours":"sad"
+      }
+        
+      </Text>
         <Text   style={styles.comTex}  >{item.text}</Text>
       </View>
     );
@@ -412,18 +422,35 @@ userIdd={user?.userId} bookIdd={route.params?.idBook}
             paddingHorizontal:15,
             borderRadius:5
               },
-              mainCom:
-              {
-               
-              }
-              ,
+              profileContainer: {
+                padding: 20,
+                backgroundColor: '#f0f0f0',
+                borderRadius: 10,
+                
+              },
+              username: {
+                fontSize: 18,
+                fontWeight: 'bold',
+                alignSelf:"flex-start",
+              },
+              userBio: {
+                fontSize: 16,
+                color: '#555',
+                marginLeft:30
+              },
+              
               userTex:{
                 fontWeight: 'bold',
                 alignSelf:"flex-start",
               },
               comTex:{
                 marginLeft:30
-              }
+              },
+              input: {
+                height: 40,
+                marginBottom: 10,
+                backgroundColor: 'white',
+              },
         };
         
 

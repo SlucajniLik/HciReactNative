@@ -127,7 +127,9 @@ axios
 
 
   />
-  <TouchableOpacity onPress={SortText}    >
+ 
+</View>
+<TouchableOpacity onPress={SortText}    >
 <Icon 
         name={sortb}
         
@@ -136,8 +138,6 @@ axios
       />
   
     </TouchableOpacity>
-
-</View>
 
 
 
