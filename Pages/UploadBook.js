@@ -30,7 +30,7 @@ const [bookCheck,setBookCheck]=useState(null)
 const [globalWarning,setGlobalWarning]=useState(null)
 
 const [success,setSuccess]=useState(null)
-
+const [uploadd,setUploadd]=useState(false)
 const uploadFileToFirebase = async (fileUri,filenamee,type) => {
   try {
     const response = await fetch(fileUri);
@@ -114,7 +114,8 @@ console.log(file.mimeType)
     const im=await uploadFileToFirebase(uriImage,nameImage,"image")
     const pd=await uploadFileToFirebase(uriBook,nameBook1,"pdf")
     
-    
+
+    setUploadd(true)
     console.log(im+"/////////")
     console.log(pd+"----------")
     console.log(imageBook+"immmmmmmmmmmmm")
@@ -138,6 +139,7 @@ console.log(file.mimeType)
         axios
         .post(baseUlr+"addBook",book)
         .then((response) => {
+          setUploadd(false)
            console.log(response)
             
         });
@@ -211,11 +213,14 @@ setNameWarning(true)
         }
         placeholderTextColor='white'
       />
-         <ActivityIndicator/>
-      { /* nameWarning ==true?<Text  style={styles.warning}>Unesite ime knjige</Text>:""*/}
-      {  globalWarning ==true?<Text  style={styles.warning}>Unesite sve podatke</Text>:<Text></Text>}
+        <Text>Naziv je obavezan i  mora pocinjati velikim slovom</Text>
+      
+     
+       {  globalWarning ==true?<Text  style={styles.warning}>Unesite sve podatke</Text>:<Text></Text>}
       {  success ==true?<Text  style={styles.success}>Uspesno ste uneli knigu</Text>:<Text></Text>}
+      { uploadd==true?<ActivityIndicator/>:<Text></Text> }
        <Button title="Unesite knjigu" onPress={UploadBooks} />
+       
     </View>
     
   );
@@ -249,12 +254,12 @@ const styles = {
   warning: {
     height: 40,
     marginBottom: 10,
-    backgroundColor: 'red',
+    color: 'red',
   },
   success: {
     height: 40,
     marginBottom: 10,
-    backgroundColor: 'green',
+    color: 'green',
   },
   input: {
     width: 350,

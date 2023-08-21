@@ -12,7 +12,9 @@ function Register ({ navigation })  {
   const [confirmPassword, setConfirmPassword] = useState("");
   
   const [nameWarning, setNameWarning] = useState(null);
+  const [nameWarning2, setNameWarning2] = useState(null);
   const [surnNameWarning, setSurNameWarning] = useState(null);
+  const [surnNameWarning2, setSurNameWarning2] = useState(null);
   const [usernameWarning, setUsernameWarning] = useState(null);
   const [passwordWarning, setPasswordWarning] = useState(null);
   const [confirmPasswordWarning, setConfirmPasswordWarning] = useState(null);
@@ -21,6 +23,7 @@ function Register ({ navigation })  {
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
   const [success,setSuccess]=useState(null)
+  const [uploadd,setUploadd]=useState(false)
   //const baseUlr="http://lekar1-001-site1.htempurl.com/"
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -33,8 +36,11 @@ function Register ({ navigation })  {
   
 
 
-if(nameWarning==false && surnNameWarning==false && usernameWarning==false && passwordWarning==false && confirmPasswordWarning==false)
+if(nameWarning==false && surnNameWarning==false  &&
+  nameWarning2==false && surnNameWarning2==false 
+  && usernameWarning==false && passwordWarning==false && confirmPasswordWarning==false)
 {
+  setUploadd(true)
 
   const user={
 
@@ -58,11 +64,13 @@ console.log(user)
                if(response.data=="")
                {
                 setAlredyExist(true)
+                setUploadd(false)
                }
                else
                {
                   
                    setSuccess(true)  
+                   setUploadd(false)
 
                }
                // navigation.navigate('LogIn');
@@ -97,6 +105,20 @@ setGlobalWarning(true)
            placeholder={"Name"}
            onChangeText={(text) => {
            
+
+
+
+            if(text.charAt(0)==text.charAt(0).toUpperCase())
+            {
+             setNameWarning2(true)
+            }
+            else
+            {
+              setNameWarning2(false)
+            }
+
+
+
              if(text.length<3)
              {
                setNameWarning(true)
@@ -117,6 +139,8 @@ setGlobalWarning(true)
          
         />
           {  nameWarning ==true?<Text  style={styles.warning}>Ime mora imati najmanje tri slova</Text>:<Text></Text>}
+          {  nameWarning2 ==true?<Text  style={styles.warning}>Ime mora pocinjati velikim slovom</Text>:<Text></Text>}
+
         <TextInput
         style={styles.input}
         value={surname}
@@ -133,6 +157,14 @@ setGlobalWarning(true)
             setSurNameWarning(false)
           }
           
+          if(text.charAt(0)==text.charAt(0).toUpperCase())
+            {
+             setSurNameWarning2(true)
+            }
+            else
+            {
+              setSurNameWarning2(false)
+            }
 
           setSurname(text)
           setSuccess(false)
@@ -143,6 +175,7 @@ setGlobalWarning(true)
           
         />
          {  surnNameWarning ==true?<Text  style={styles.warning}>Prezime mora imati najmanje tri slova</Text>:<Text></Text>}
+         {  surnNameWarning2 ==true?<Text  style={styles.warning}>Prezime mora pocinjati velikim slovom</Text>:<Text></Text>}
         <TextInput
          style={styles.input}
          value={username}
@@ -157,6 +190,7 @@ setGlobalWarning(true)
            {
              setUsernameWarning(false)
            }
+          
            
            setUsername(text)
            setSuccess(false)
@@ -236,7 +270,7 @@ setGlobalWarning(true)
        {  confirmPasswordWarning ==true?<Text  style={styles.warning}>Lozinke se moraju podudarati</Text>:<Text></Text>}
       
 
-     <ActivityIndicator/>
+     { uploadd==true?<ActivityIndicator/>:<Text></Text>}
 
         <Button
            onPress={onPressHandler} title={"Registrujte se"} 
@@ -305,15 +339,18 @@ const styles = StyleSheet.create({
   warning: {
     height: 40,
     marginBottom: 10,
-    backgroundColor: 'red',
+    color: 'red',
   },
 imgBtn:{
   flex: 1,
   justifyContent: 'center',
   alignItems: 'center'
 },
-
-
+success: {
+  height: 40,
+  marginBottom: 10,
+  color: 'green',
+}
 
 })
 

@@ -24,7 +24,7 @@ console.log(id+"/////")
 
 
   return (
-    <View style={styles.wrapper}>
+ 
     <FlatList
         data={data}
         keyExtractor={(item) => item.id.toString()}
@@ -51,7 +51,7 @@ console.log(id+"/////")
 )}
 showsVerticalScrollIndicator={false} 
       />
-        </View>
+        
 
 
 

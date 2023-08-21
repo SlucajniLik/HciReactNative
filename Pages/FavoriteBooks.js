@@ -93,6 +93,7 @@ axios
 
   
   return (
+    <>
     <View >
     <View style={styles.header}>
   <Searchbar
@@ -138,19 +139,10 @@ axios
       />
   
     </TouchableOpacity>
-
-
-
-
-      
-      
-      
      
-      
-      <Book  data={data}       navigation={navigation}></Book>
-      
-    
     </View>
+     <Book  data={data}       navigation={navigation}></Book>
+     </>
   );
 };
 

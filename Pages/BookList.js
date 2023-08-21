@@ -9,7 +9,7 @@ import { baseUlr } from "../config";
 
 import Book from "./Book";
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Text } from "react-native-paper";
+import { ActivityIndicator, Text } from "react-native-paper";
 
 import { FAB } from 'react-native-paper';
 import { Searchbar } from 'react-native-paper';
@@ -166,9 +166,11 @@ axios
       />
   
     </TouchableOpacity>
-      <Book  data={data}   navigation={navigation}></Book>
-     
     </View>
+    <Book  data={data}   navigation={navigation}></Book>
+  
+    
+    
     <FAB
     icon="plus"
     style={styles.fab}

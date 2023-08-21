@@ -146,7 +146,7 @@ visibilityBtn: {
   warning: {
     height: 40,
     marginBottom: 10,
-    backgroundColor: 'red',
+    color: 'red',
   },
 imgBtn:{
   flex: 1,
