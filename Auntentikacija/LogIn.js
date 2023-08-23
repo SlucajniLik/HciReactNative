@@ -39,7 +39,7 @@ function Login  ({ navigation })  {
           SetUserToken(response.data.token)
           SetUser(response.data)
           axios.defaults.headers.common['Authorization']="Bearer "+response.data.token
-           // navigation.navigate('BookList');
+            navigation.navigate('BookList');
 
            
         }
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: "#1E1B26",
+    backgroundColor: "white",
   },
 visibilityBtn: {
     position: 'absolute',

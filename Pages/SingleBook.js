@@ -229,13 +229,14 @@ console.log("Mimetype"+mimetype)
     ]; 
     const renderItem = (item) => (
       <View   style={styles.profileContainer}  key={item.id.toString()}  >
-        <Text   style={styles.userTex}   >{item.username } 
+        <Text   style={styles.userTex}   >{item.username}
+        
 
         {
-        Math.floor((new Date()-new Date(item.datum))/ (1000 * 60 * 60 * 24))?
-        Math.floor((new Date()-new Date(item.datum))/ (1000 * 60 * 60 * 24))+"days":
-        Math.floor((new Date()-new Date(item.datum))/ (1000 * 60 * 60)%24)?
-        Math.floor((new Date()-new Date(item.datum))/ (1000 * 60 * 60)%24)+"hours":"sad"
+        Math.floor((new Date()-item.datum)/ (1000 * 60 * 60 * 24))?
+        Math.floor((new Date()-item.datum)/ (1000 * 60 * 60 * 24))+"days":
+        Math.floor((new Date()-item.datum)/ (1000 * 60 * 60)%24)?
+        Math.floor((new Date()-item.datum)/ (1000 * 60 * 60)%24)+"hours":"sad"
       }
         
       </Text>

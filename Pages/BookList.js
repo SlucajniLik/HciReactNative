@@ -89,15 +89,20 @@ function BookList  ({ navigation })  {
       }
  
  
+var headers;
 useEffect(()=>{
-
+headers={
+  Authorization: `Bearer ${userToken}`,
+  // You can add other headers here if needed
+};
  
       
-
+//moram da stavim headers jer nece drugacije
 axios
-.get(baseUlr+"getBooks")
+.get(baseUlr+"getBooks",{ headers })
 .then((response) => {
   console.log(response.data)
+  
  setData(response.data)
 })
 

@@ -83,7 +83,7 @@ setGlobalWarning(true)
 
   }
   return (
-    <>
+    
 
 
       <View style={styles.container}>
@@ -138,8 +138,8 @@ setGlobalWarning(true)
           placeholderTextColor='white'
          
         />
-          {  nameWarning ==true?<Text  style={styles.warning}>Ime mora imati najmanje tri slova</Text>:<Text></Text>}
-          {  nameWarning2 ==true?<Text  style={styles.warning}>Ime mora pocinjati velikim slovom</Text>:<Text></Text>}
+          {  nameWarning ==true?<Text  style={styles.warning}>Ime mora imati najmanje tri slova</Text>:<View/>}
+          {  nameWarning2 ==true?<Text  style={styles.warning}>Ime mora pocinjati velikim slovom</Text>:<View/>}
 
         <TextInput
         style={styles.input}
@@ -174,8 +174,8 @@ setGlobalWarning(true)
          placeholderTextColor='white'
           
         />
-         {  surnNameWarning ==true?<Text  style={styles.warning}>Prezime mora imati najmanje tri slova</Text>:<Text></Text>}
-         {  surnNameWarning2 ==true?<Text  style={styles.warning}>Prezime mora pocinjati velikim slovom</Text>:<Text></Text>}
+         {  surnNameWarning ==true?<Text  style={styles.warning}>Prezime mora imati najmanje tri slova</Text>:<View/>}
+         {  surnNameWarning2 ==true?<Text  style={styles.warning}>Prezime mora pocinjati velikim slovom</Text>:<View/>}
         <TextInput
          style={styles.input}
          value={username}
@@ -200,7 +200,7 @@ setGlobalWarning(true)
          autoCapitalize={"none"}
          placeholderTextColor='white'
         />
-        {  usernameWarning ==true?<Text  style={styles.warning}>Korisnicko ime mora imati najmanje tri slova</Text>:<Text></Text>}
+        {  usernameWarning ==true?<Text  style={styles.warning}>Korisnicko ime mora imati najmanje tri slova</Text>:<View/>}
         <View>
         <TextInput
           style={styles.input}
@@ -234,7 +234,7 @@ setGlobalWarning(true)
         />
                 </TouchableOpacity>
                 </View>
-         {  passwordWarning ==true?<Text  style={styles.warning}>Lozinka mora imati makar tri karaktera</Text>:<Text></Text>}
+         {  passwordWarning ==true?<Text  style={styles.warning}>Lozinka mora imati makar tri karaktera</Text>:<View/>}
          <View>
          <TextInput
         style={styles.input}
@@ -267,7 +267,7 @@ setGlobalWarning(true)
         />
                 </TouchableOpacity>
                 </View>
-       {  confirmPasswordWarning ==true?<Text  style={styles.warning}>Lozinke se moraju podudarati</Text>:<Text></Text>}
+       {  confirmPasswordWarning ==true?<Text  style={styles.warning}>Lozinke se moraju podudarati</Text>:<View/>}
       
 
      { uploadd==true?<ActivityIndicator/>:<Text></Text>}
@@ -275,10 +275,10 @@ setGlobalWarning(true)
         <Button
            onPress={onPressHandler} title={"Registrujte se"} 
           />
- {  globalWarning ==true?<Text  style={styles.warning}>Unesite ispravno podatke</Text>:<Text></Text>}
-      {  alredyExist ==true?<Text  style={styles.warning}>Kornisnik sa ovim korisnickim imenom vec postoji</Text>:<Text></Text>}
+ {  globalWarning ==true?<Text  style={styles.warning}>Unesite ispravno podatke</Text>:<View/>}
+      {  alredyExist ==true?<Text  style={styles.warning}>Kornisnik sa ovim korisnickim imenom vec postoji</Text>:<View/>}
 
-      {  success ==true?<Text  style={styles.success}>Uspesno ste se registrovali</Text>:<Text></Text>}
+      {  success ==true?<Text  style={styles.success}>Uspesno ste se registrovali</Text>:<View/>}
       </View>
 
 
@@ -303,7 +303,7 @@ setGlobalWarning(true)
 
 
 
-    </>
+  
   );
 };
 
@@ -326,7 +326,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: "#1E1B26",
+    backgroundColor: "white",
   },
   visibilityBtn: {
     position: 'absolute',
