@@ -102,13 +102,13 @@ setGlobalWarning(true)
         <TextInput
            style={styles.input}
            value={name}
-           placeholder={"Name"}
+           placeholder={"Ime"}
            onChangeText={(text) => {
            
 
 
 
-            if(text.charAt(0)==text.charAt(0).toUpperCase())
+            if(text.charAt(0)!=text.charAt(0).toUpperCase())
             {
              setNameWarning2(true)
             }
@@ -116,7 +116,7 @@ setGlobalWarning(true)
             {
               setNameWarning2(false)
             }
-
+          
 
 
              if(text.length<3)
@@ -144,7 +144,7 @@ setGlobalWarning(true)
         <TextInput
         style={styles.input}
         value={surname}
-        placeholder={"Surname"}
+        placeholder={"Prezime"}
 
         onChangeText={(text) =>{
           if(text.length<3)
@@ -157,7 +157,7 @@ setGlobalWarning(true)
             setSurNameWarning(false)
           }
           
-          if(text.charAt(0)==text.charAt(0).toUpperCase())
+          if(text.charAt(0)!=text.charAt(0).toUpperCase())
             {
              setSurNameWarning2(true)
             }
@@ -179,7 +179,7 @@ setGlobalWarning(true)
         <TextInput
          style={styles.input}
          value={username}
-         placeholder={"Username"}
+         placeholder={"Korisnicko ime"}
          onChangeText={(text) => {
            if(text.length<3)
            {
@@ -205,7 +205,7 @@ setGlobalWarning(true)
         <TextInput
           style={styles.input}
           value={password}
-          placeholder={"Password"}
+          placeholder={"Lozinka"}
           secureTextEntry={!showPassword}
           onChangeText={(text) =>{
             if(text.length<3)
@@ -239,7 +239,7 @@ setGlobalWarning(true)
          <TextInput
         style={styles.input}
         value={confirmPassword}
-        placeholder={"Confirm password"}
+        placeholder={"Potvrdite lozinku"}
         secureTextEntry={!showPassword2}
         onChangeText={(text) => {
           if(text!=password)

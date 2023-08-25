@@ -75,7 +75,7 @@ function Login  ({ navigation })  {
         <TextInput
           style={styles.input}
           value={username}
-          placeholder={"Username"}
+          placeholder={"Korisnicko ime"}
           onChangeText={(text) =>{setUsername(text), setWarning(null)}}
           autoCapitalize="none"
           placeholderTextColor='white'
@@ -85,7 +85,7 @@ function Login  ({ navigation })  {
         <TextInput
           style={styles.input}
           value={password}
-          placeholder={"Password"}
+          placeholder={"Lozinka"}
           secureTextEntry={!showPassword}
           onChangeText={(text) => {setPassword(text),setWarning(null)}}
           autoCapitalize="none"

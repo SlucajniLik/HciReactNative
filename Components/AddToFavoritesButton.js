@@ -53,7 +53,7 @@ SetSharedCheck(!sharedCheck)
   return (
     <TouchableOpacity style={styles.buttonContainer} onPress={handleToggleFavorite}>
       <Ionicons name={isFavoritt ? 'heart' : 'heart-outline'} size={24} color={isFavoritt  ? 'red' : 'gray'} />
-      <Text style={styles.buttonText}>{isFavoritt ? 'Remove from Favorites' : 'Add to Favorites'}</Text>
+      <Text style={styles.buttonText}>{isFavoritt ? 'Uklonite iz favorita' : 'Dodajte u favorite'}</Text>
     </TouchableOpacity>
   );
 };

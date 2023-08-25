@@ -123,7 +123,7 @@ axios
 
 <View style={styles.header}>
 <Searchbar
-      placeholder="Search"
+      placeholder="Pretrazite..."
       onChangeText={(text) => {
       
       
@@ -180,7 +180,7 @@ axios
     icon="plus"
     style={styles.fab}
     onPress={() => {
-navigation.navigate("UploadBooks")
+navigation.navigate("Unesite knjigu")
 
     }}
   />

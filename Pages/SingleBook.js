@@ -230,13 +230,19 @@ console.log("Mimetype"+mimetype)
     const renderItem = (item) => (
       <View   style={styles.profileContainer}  key={item.id.toString()}  >
         <Text   style={styles.userTex}   >{item.username}
+      
         
 
         {
-        Math.floor((new Date()-item.datum)/ (1000 * 60 * 60 * 24))?
-        Math.floor((new Date()-item.datum)/ (1000 * 60 * 60 * 24))+"days":
-        Math.floor((new Date()-item.datum)/ (1000 * 60 * 60)%24)?
-        Math.floor((new Date()-item.datum)/ (1000 * 60 * 60)%24)+"hours":"sad"
+      /*  Math.floor((new Date()-new Date(item.datum.split("T")[0]))/ (1000 * 60 * 60 * 24))==0?
+        Math.floor((new Date()-new Date(item.datum.split("T")[0]))/ (1000 * 60 * 60 * 24))+"hours":
+        Math.floor((new Date()-new Date(item.datum.split("T")[0]))/ (1000 * 60 * 60))+"days"*/
+        /*>0?
+        Math.floor((new Date()-new Date(item.datum.split("T")[0]))/ (1000 * 60 * 60 * 24))+"days":""*/
+
+       /* Math.floor((new Date()-new Date(item.datum.split("T")[0]))/ (1000 * 60 * 60)%24)?
+        Math.floor((new Date()-new Date(item.datum.split("T")[0]))/ (1000 * 60 * 60)%24)+"hours":"sad"*/
+
       }
         
       </Text>
@@ -280,7 +286,7 @@ userIdd={user?.userId} bookIdd={route.params?.idBook}
 <TextInput
         style={styles.input}
         value={comment}
-        placeholder={"Add comment"}
+        placeholder={"Dodajte komentar..."}
         onChangeText={(text) => SetComment(text)}
         autoCapitalize={"none"}
         onKeyPress={WriteComment}

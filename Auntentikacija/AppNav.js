@@ -107,48 +107,73 @@ const LogOut = () => {
                 
                 options={{ headerShown: false }} />
               </Stack.Navigator>*/}
+
+
+
+{userToken != null ?<Appbar.Header>
+
+<Appbar.Content title="Biblioteka" />
+
+
+<Appbar.Action icon="heart" onPress={() => {
+navigation.navigate("Favoriti")
+}} />
+<Appbar.Action icon="logout" onPress={LogOut} />
+
+
+</Appbar.Header>:
+
 <Appbar.Header>
- 
- <Appbar.Content title="Library" />
+<Appbar.Content title="Biblioteka" />
 
 
- {userToken == null ?<Appbar.Action icon="plus" onPress={() => {
- navigation.navigate("Register")
- }} />:<Appbar.Action  />}
-
-
-
- {userToken != null ?<Appbar.Action icon="heart" onPress={() => {
- navigation.navigate("Favorites")
- }} />:<Appbar.Action  />}
- {userToken != null ?<Appbar.Action icon="logout" onPress={LogOut} />:<Appbar.Action  />}
+<Appbar.Action icon="plus" onPress={() => {
+navigation.navigate("Registrujte se")
+}} />
 
 
 </Appbar.Header>
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {userToken == null ? <Stack.Navigator>
         <Stack.Screen
-          name="LogIn"
+          name="Ulogujte se"
           component={Login}
 
         />
         <Stack.Screen
-          name="Register"
+          name="Registrujte se"
           component={Register}
         />
       </Stack.Navigator>
         :
         <Stack.Navigator>
           <Stack.Screen
-            name="BookList"
+            name="Lista knjiga"
             component={BookList}
           />
           <Stack.Screen
-            name="UploadBooks"
+            name="Unesite knjigu"
             component={UploadBook}
           />
 
-          <Stack.Screen name="Favorites" component={FavoriteBooks} />
-          <Stack.Screen name="SingleBook" component={SingleBook}  />
+          <Stack.Screen name="Favoriti" component={FavoriteBooks} />
+          <Stack.Screen name="Detalji" component={SingleBook}  />
         </Stack.Navigator>}
 
 

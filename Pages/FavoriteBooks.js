@@ -97,8 +97,8 @@ axios
     <View >
     <View style={styles.header}>
   <Searchbar
-    placeholder={"Search..."}
-    style={styles.input}
+    placeholder={"Pretrazite..."}
+   
     value={bookS}
     onChangeText={(text) => {
       if(text!="")

@@ -13,7 +13,7 @@ function Book({ data,navigation })  {
 
    
          
-  navigation.navigate('SingleBook',{ idBook:id});
+  navigation.navigate('Detalji',{ idBook:id});
 console.log(id+"/////")
    
 }

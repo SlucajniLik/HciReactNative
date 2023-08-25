@@ -109,7 +109,7 @@ console.log(file.mimeType)
 
 
 
-  if(uriImage && uriBook && nameBook)
+  if(uriImage && uriBook && nameBook && nameWarning==false)
   {
     const im=await uploadFileToFirebase(uriImage,nameImage,"image")
     const pd=await uploadFileToFirebase(uriBook,nameBook1,"pdf")
@@ -186,9 +186,9 @@ else
                 }}
               />
             </View>
-      <Button title="Upload Image" onPress={() =>handleFileUpload('image/*')} />
+      <Button title="Unesite sliku" onPress={() =>handleFileUpload('image/*')} />
       <Text    >Slika je obavezna</Text>
-      <Button title="Upload book" onPress={() =>handleFileUpload('application/pdf')} />
+      <Button title="Unesite pdf" onPress={() =>handleFileUpload('application/pdf')} />
       <Text>pdf knjiga je obavezna</Text>
       
       <TextInput
@@ -199,7 +199,22 @@ else
         onChangeText={(text) => 
           
          {
-          if(text.length!=0)
+
+          if(text.charAt(0)!=text.charAt(0).toUpperCase())
+          {
+            setNameWarning(true)
+          }
+          else
+          {
+            setNameWarning(false)
+          }
+
+
+
+
+
+
+       /*   if(text.length!=0)
           {
 setNameWarning(true)
           }
@@ -207,17 +222,17 @@ setNameWarning(true)
           {
             setNameWarning(false)
             
-          }
+          }*/
           setNameBook(text)
          }
         }
         placeholderTextColor='white'
       />
-        <Text>Naziv je obavezan i  mora pocinjati velikim slovom</Text>
+        {nameWarning==true?<Text      style={styles.warning}>Naziv je obavezan i  mora pocinjati velikim slovom</Text>:<View/>}
       
      
-       {  globalWarning ==true?<Text  style={styles.warning}>Unesite sve podatke</Text>:<Text></Text>}
-      {  success ==true?<Text  style={styles.success}>Uspesno ste uneli knigu</Text>:<Text></Text>}
+       {  globalWarning ==true?<Text  style={styles.warning}>Unesite sve podatke</Text>:<View/>}
+      {  success ==true?<Text  style={styles.success}>Uspesno ste uneli knigu</Text>:<View/>}
       { uploadd==true?<ActivityIndicator/>:<Text></Text> }
        <Button title="Unesite knjigu" onPress={UploadBooks} />
        
