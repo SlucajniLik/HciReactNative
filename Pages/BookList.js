@@ -124,13 +124,17 @@ axios
 <View style={styles.header}>
 <Searchbar
       placeholder="Pretrazite..."
+      style={styles.input}
       onChangeText={(text) => {
-      
-      
+        var headers;
+        headers={
+          Authorization: `Bearer ${userToken}`,
+          // You can add other headers here if needed
+        };
         if(text!="")
         {
          axios
-         .get(baseUlr+"searchBooks/"+text)
+         .get(baseUlr+"searchBooks/"+text,{ headers })
          .then((response) => {
            console.log(response.data)
            setData(response.data)
@@ -141,7 +145,7 @@ axios
    
          
    axios
-   .get(baseUlr+"getBooks")
+   .get(baseUlr+"getBooks",{ headers })
    .then((response) => {
      console.log(response.data)
     setData(response.data)
@@ -167,7 +171,7 @@ axios
         name={sortb}
         
        
-        size={30}
+        size={45}
       />
   
     </TouchableOpacity>

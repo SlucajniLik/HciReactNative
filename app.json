@@ -2,8 +2,10 @@
   "expo": {
   
  
-    "name": "Library",
-    "slug": "library-app",
+    "name": "my-project",
+    "slug": "my-project",
+    "privacy":"public",
+    "description":"moja aplikacija",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

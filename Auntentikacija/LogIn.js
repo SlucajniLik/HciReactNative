@@ -39,7 +39,7 @@ function Login  ({ navigation })  {
           SetUserToken(response.data.token)
           SetUser(response.data)
           axios.defaults.headers.common['Authorization']="Bearer "+response.data.token
-            navigation.navigate('BookList');
+           
 
            
         }
@@ -55,7 +55,21 @@ function Login  ({ navigation })  {
 
     
   }
-  return (
+
+
+
+
+    const onPressHandler2 = () => {
+
+      navigation.navigate("Registrujte se")
+
+
+
+
+    }
+      
+      
+      return (
     <>
 
 
@@ -109,7 +123,13 @@ function Login  ({ navigation })  {
         <Button
            onPress={onPressHandler} title={"Ulogujte se"} 
           />
-          {  warning !=null?<Text  style={styles.warning}>{warning}</Text>:<Text></Text>}
+          {  warning !=null?<Text  style={styles.warning}>{warning}</Text>:<View/>}
+          <View style={styles.imgBtn}>
+          <Button
+           onPress={onPressHandler2} title={"Registrujte se"} 
+           
+          />
+          </View>
       </View>
     </>
   );
@@ -149,7 +169,8 @@ visibilityBtn: {
     color: 'red',
   },
 imgBtn:{
-  flex: 1,
+  backgroundColor:"green",
+marginTop:10,
   justifyContent: 'center',
   alignItems: 'center'
 },

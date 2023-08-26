@@ -74,11 +74,15 @@ function FavoriteBooks  ({ navigation })  {
  
 useEffect(()=>{
 
- 
+  var headers;
+  headers={
+    Authorization: `Bearer ${userToken}`,
+    // You can add other headers here if needed
+  };
      
 
 axios
-.get(baseUlr+"GetFav/"+user?.userId)
+.get(baseUlr+"GetFav/"+user?.userId,{ headers })
 .then((response) => {
   console.log(response.data)
  setData(response.data)
@@ -98,13 +102,18 @@ axios
     <View style={styles.header}>
   <Searchbar
     placeholder={"Pretrazite..."}
-   
+    style={styles.input}
     value={bookS}
     onChangeText={(text) => {
       if(text!="")
       {
+        var headers;
+        headers={
+          Authorization: `Bearer ${userToken}`,
+          // You can add other headers here if needed
+        };
       axios
-    .get(baseUlr+"searchBooksFav/"+user?.userId+"/"+text)
+    .get(baseUlr+"searchBooksFav/"+user?.userId+"/"+text,{ headers })
     .then((response) => {
       console.log(response.data)
       setData(response.data)
@@ -113,7 +122,7 @@ axios
   else{
     
 axios
-.get(baseUlr+"GetFav/"+user?.userId)
+.get(baseUlr+"GetFav/"+user?.userId,{ headers })
 .then((response) => {
   console.log(response.data)
  setData(response.data)
@@ -135,7 +144,7 @@ axios
         name={sortb}
         
        
-        size={30}
+        size={45}
       />
   
     </TouchableOpacity>

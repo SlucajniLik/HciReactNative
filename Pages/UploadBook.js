@@ -111,11 +111,12 @@ console.log(file.mimeType)
 
   if(uriImage && uriBook && nameBook && nameWarning==false)
   {
+    setUploadd(true)
     const im=await uploadFileToFirebase(uriImage,nameImage,"image")
     const pd=await uploadFileToFirebase(uriBook,nameBook1,"pdf")
     
 
-    setUploadd(true)
+   
     console.log(im+"/////////")
     console.log(pd+"----------")
     console.log(imageBook+"immmmmmmmmmmmm")
@@ -134,16 +135,19 @@ console.log(file.mimeType)
     
       }
       
-      
-      
+      var headers;
+      headers={
+        Authorization: `Bearer ${userToken}`,
+        // You can add other headers here if needed
+      };
         axios
-        .post(baseUlr+"addBook",book)
+        .post(baseUlr+"addBook",book,{ headers })
         .then((response) => {
           setUploadd(false)
            console.log(response)
             
         });
-      SetBookListCheck(true)
+      SetBookListCheck(!booListCheck)
     setSuccess(true)
     setGlobalWarning(false)
 
@@ -233,7 +237,7 @@ setNameWarning(true)
      
        {  globalWarning ==true?<Text  style={styles.warning}>Unesite sve podatke</Text>:<View/>}
       {  success ==true?<Text  style={styles.success}>Uspesno ste uneli knigu</Text>:<View/>}
-      { uploadd==true?<ActivityIndicator/>:<Text></Text> }
+      { uploadd==true?<ActivityIndicator/>:<View/> }
        <Button title="Unesite knjigu" onPress={UploadBooks} />
        
     </View>

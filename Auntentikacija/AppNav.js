@@ -124,12 +124,9 @@ navigation.navigate("Favoriti")
 </Appbar.Header>:
 
 <Appbar.Header>
-<Appbar.Content title="Biblioteka" />
 
 
-<Appbar.Action icon="plus" onPress={() => {
-navigation.navigate("Registrujte se")
-}} />
+
 
 
 </Appbar.Header>
@@ -154,10 +151,12 @@ navigation.navigate("Registrujte se")
         <Stack.Screen
           name="Ulogujte se"
           component={Login}
+          options={{ headerStyle: { height: 0}, headerBackImage: () => null,}}
 
         />
         <Stack.Screen
           name="Registrujte se"
+          options={{ headerStyle: { height: 0}, headerBackImage: () => null,}}
           component={Register}
         />
       </Stack.Navigator>
@@ -166,14 +165,20 @@ navigation.navigate("Registrujte se")
           <Stack.Screen
             name="Lista knjiga"
             component={BookList}
+            options={{ headerStyle: { height: 0}, headerBackImage: () => null,}}
           />
           <Stack.Screen
             name="Unesite knjigu"
             component={UploadBook}
+            options={{ headerStyle: { height: 0}, headerBackImage: () => null,}}
           />
 
-          <Stack.Screen name="Favoriti" component={FavoriteBooks} />
-          <Stack.Screen name="Detalji" component={SingleBook}  />
+          <Stack.Screen name="Favoriti" component={FavoriteBooks}
+            options={{ headerStyle: { height: 0}, headerBackImage: () => null,}}
+            />
+          <Stack.Screen name="Detalji" component={SingleBook} 
+            options={{ headerStyle: { height: 0}, headerBackImage: () => null,}}
+            />
         </Stack.Navigator>}
 
 
