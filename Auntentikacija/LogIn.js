@@ -1,6 +1,6 @@
 
-import React, {  useState } from "react";
-import { Button, StyleSheet, TextInput,Text,View,TouchableOpacity,Image} from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Text, View, TouchableOpacity, Image, Pressable } from "react-native";
 import BookList from "../Pages/BookList";
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -8,128 +8,125 @@ import { baseUlr } from "../config";
 import { UserContext } from "../Auntentikacija/UserContext";
 import { useContext } from "react";
 import Icon from 'react-native-vector-icons/FontAwesome';
-function Login  ({ navigation })  {
+import { TextInput, Button } from 'react-native-paper';
+function Login({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [warning, setWarning] = useState(null);
-  const {SetUser,user,SetUserToken,userToken}=useContext(UserContext)
+  const { SetUser, user, SetUserToken, userToken } = useContext(UserContext)
   const [showPassword, setShowPassword] = useState(false);
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
-  
+
   const onPressHandler = () => {
 
 
-    const user={
-        username:username,
-        password:password
+    const user = {
+      username: username,
+      password: password
     }
 
 
 
     axios
-    .post(baseUlr+"loginUser",user)
-    .then((response) => {
-        console.log(response.data.token+"log")
-        if(response.data.token!=null)
-        {
-          AsyncStorage.setItem("token",response.data.token)
-          AsyncStorage.setItem("user",JSON.stringify(response.data))
+      .post(baseUlr + "loginUser", user)
+      .then((response) => {
+        console.log(response.data.token + "log")
+        if (response.data.token != null) {
+          AsyncStorage.setItem("token", response.data.token)
+          AsyncStorage.setItem("user", JSON.stringify(response.data))
           SetUserToken(response.data.token)
           SetUser(response.data)
-          axios.defaults.headers.common['Authorization']="Bearer "+response.data.token
-           
+          axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.token
 
-           
+
+
         }
-        else
-        {
-           setWarning("Unesite ispravne podatke")
+        else {
+          setWarning("Unesite ispravne podatke")
         }
         setPassword("")
         setUsername("")
-        
-    });
+
+      });
 
 
-    
+
   }
 
 
 
 
-    const onPressHandler2 = () => {
-
-      navigation.navigate("Registrujte se")
-
-
+  const onPressHandler2 = () => {
+    setWarning(null)
+    navigation.navigate("Registrujte se")
 
 
-    }
-      
-      
-      return (
+
+
+  }
+
+
+  return (
     <>
 
 
 
-    <View style={styles.container}>
-    <View style={{alignItems: 'center'}}>
-              <Icon
-                 name={'eye'}
-                style={{
-                  width: '80%',
-                  height: 100,
-                  
-                  margin: 30,
-                }}
-              />
-            </View>
+      <View style={styles.container}>
+        <View style={{ alignItems: 'center' }}>
+          <Image source={require('../assets/library-icon.png')} style={styles.image} />
+        </View>
         <TextInput
           style={styles.input}
           value={username}
           placeholder={"Korisnicko ime"}
-          onChangeText={(text) =>{setUsername(text), setWarning(null)}}
+          onChangeText={(text) => { setUsername(text), setWarning(null) }}
           autoCapitalize="none"
-          placeholderTextColor='white'
-         
+          underlineColor="transparent"
+
+
         />
         <View>
-        <TextInput
-          style={styles.input}
-          value={password}
-          placeholder={"Lozinka"}
-          secureTextEntry={!showPassword}
-          onChangeText={(text) => {setPassword(text),setWarning(null)}}
-          autoCapitalize="none"
-          placeholderTextColor='white'          
-        />
+          <TextInput
+            style={styles.input}
+            value={password}
+            placeholder={"Lozinka"}
+            secureTextEntry={!showPassword}
+            onChangeText={(text) => { setPassword(text), setWarning(null) }}
+            autoCapitalize="none"
+            underlineColor="transparent"
+          />
+
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.visibilityBtn}
+            onPress={toggleShowPassword}>
+            <Icon
+              name={showPassword ? 'eye-slash' : 'eye'}
+              size={24}
+              color="black"
+            />
+
+          </TouchableOpacity>
+        </View>
+
+
+        <Pressable
+          style={styles.button}
+          onPress={onPressHandler}
+        >
+          <Text style={styles.buttonText}>{"Ulogujte se"}</Text>
+        </Pressable>
         
-         <TouchableOpacity
-                  activeOpacity={0.8}
-                  style={styles.visibilityBtn}
-                  onPress={toggleShowPassword}>
-                    <Icon
-          name={showPassword  ? 'eye-slash' : 'eye'}
-          size={24}
-          color="black"
-        />
-                 
-                </TouchableOpacity>
-                </View>
-                
-       
-        <Button
-           onPress={onPressHandler} title={"Ulogujte se"} 
-          />
-          {  warning !=null?<Text  style={styles.warning}>{warning}</Text>:<View/>}
-          <View style={styles.imgBtn}>
-          <Button
-           onPress={onPressHandler2} title={"Registrujte se"} 
-           
-          />
-          </View>
+        {warning != null ? <Text style={styles.warning}>{warning}</Text> : <View />}
+        <Pressable
+          style={styles.button}
+          onPress={onPressHandler2}
+        >
+          <Text style={styles.buttonText}>{"Registrujte se"}</Text>
+        </Pressable>
+        
       </View>
     </>
   );
@@ -138,14 +135,19 @@ function Login  ({ navigation })  {
 
 
 const styles = StyleSheet.create({
+  image:
+  {
+    height: 200,
+    width: 200
+  },
   input: {
     width: 350,
     height: 55,
-    backgroundColor: '#42A5F5',
+
     margin: 10,
     padding: 8,
-    color: 'white',
-    borderRadius: 14,
+
+
     fontSize: 18,
     fontWeight: '500',
   },
@@ -153,28 +155,43 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: "white",
+    backgroundColor: "whitesmoke",
   },
-visibilityBtn: {
+  visibilityBtn: {
     position: 'absolute',
-    right: 14,
+    right: 24,
     height: 25,
     width: 25,
     padding: 0,
-    marginTop: 25,
+    marginTop: 32,
   },
   warning: {
     height: 40,
     marginBottom: 10,
     color: 'red',
   },
-imgBtn:{
-  backgroundColor:"green",
-marginTop:10,
-  justifyContent: 'center',
-  alignItems: 'center'
-},
-
+  imgBtn: {
+    backgroundColor: "green",
+    marginTop: 10,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  button: {
+    width: 150,
+    backgroundColor: "green",
+    marginVertical: 10,
+    padding: 7,
+    paddingHorizontal: 15,
+    borderRadius: 5,
+    display: 'flex',
+    justifyContent: 'center',
+  }
+  ,
+  buttonText: {
+    color:"white",
+  fontWeight:"600",
+  alignSelf:"center"
+  }
 })
 
 
@@ -183,43 +200,5 @@ marginTop:10,
 
 
 
-
-/*const styles = StyleSheet.create({
-  input: {
-    height: 40,
-    marginBottom: 10,
-    backgroundColor: '#fff',
-  },
-  warning: {
-    height: 40,
-    marginBottom: 10,
-    backgroundColor: 'red',
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-  },
-  input: {
-    width: '100%',
-    height: 40,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    marginBottom: 10,
-  },
-  toggleButton: {
-    paddingVertical: 5,
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '100%',
-    marginBottom: 10,
-  },
-});*/
 
 export default Login

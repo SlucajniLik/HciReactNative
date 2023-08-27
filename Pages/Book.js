@@ -36,7 +36,7 @@ console.log(id+"/////")
 <Image source={{uri: item.urlImage}} style={styles.image} />
 <View style={styles.contentContainer}>
   
-  <Text style={styles.title}>Naziv knjige:{item.name}</Text>
+  <Text style={styles.title}>{item.name}</Text>
   <Pressable
   style={styles.button}
   onPress={()=>onPressHandler(item.id)}
@@ -67,6 +67,7 @@ const styles = {
   container: {
     flexDirection: "row",
     marginVertical: 10,
+    paddingHorizontal: 12,
   },
   image: {
     flex: 1,

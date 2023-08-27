@@ -62,7 +62,7 @@ var like={
         color={isLikedd? 'red' : 'black'}
         style={styles.icon}
       />
-      <Text style={styles.text}>{likeCount} {likeCount === 1 ? 'Like' : 'Likes'}</Text>
+      {/* <Text style={styles.text}>{likeCount} {likeCount === 1 ? 'Like' : 'Likes'}</Text> */}
     </TouchableOpacity>
   );
 };

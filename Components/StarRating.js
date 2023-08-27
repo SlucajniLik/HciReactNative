@@ -3,10 +3,10 @@ import { View, TouchableOpacity, StyleSheet,Text } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'; // You can choose a different icon library if you prefer
 import axios from "axios";
 import { baseUlr } from "../config";
-const StarRating = ({ maxStars, starss,setStarss,onPress,userIdd,bookIdd}) => {
+const StarRating = ({ maxStars, starss,setStarss,onPress,userIdd,bookIdd,average,setAverage}) => {
 
 
-  const [average, setAverage] = useState(10);
+  //const [average, setAverage] = useState(10);
  
 
 
@@ -21,8 +21,14 @@ const StarRating = ({ maxStars, starss,setStarss,onPress,userIdd,bookIdd}) => {
       .get(baseUlr+"getAverageMark/"+bookIdd)
       .then((response) => {
         console.log(response.data+"Averageee")
-        setAverage(response.data)
-       
+        if(response.data!=0)
+        {
+        setAverage(response.data.toFixed(2))
+        }
+        else
+        {
+          setAverage(1)
+        }
       })
     }
   
@@ -59,7 +65,7 @@ const StarRating = ({ maxStars, starss,setStarss,onPress,userIdd,bookIdd}) => {
       .get(baseUlr+"getAverageMark/"+bookIdd)
       .then((response) => {
         console.log(response.data+"Averageee")
-        setAverage(response.data)
+        setAverage(response.data.toFixed(2))
        
       })
      
@@ -95,15 +101,17 @@ console.log(selectedRating+"ocenaaaa")
   return <View style={styles.container}>
     
     
-    {renderStars()}
+    <View style={{flexDirection: 'row'}}>
+      {renderStars()}
+    </View>
     
-    <Text>Ocena:{starss>1?average:0}</Text>
+    {/* <Text>Ocena:{starss>1?average:0}</Text> */}
     </View>;
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
   },
   star: {

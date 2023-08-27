@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { View, Button,Image,Text,TextInput,ActivityIndicator } from 'react-native';
+import { View, Button,Image,Text,ActivityIndicator,Pressable } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
 import axios from 'axios';
 import { UserContext } from "../Auntentikacija/UserContext";
 import { useContext } from "react";
 import { baseUlr } from "../config";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { TextInput } from 'react-native-paper';
 //import firebase from 'firebase/app';
 
 //import firebase from "firebase";
@@ -183,21 +184,41 @@ else
   return (
     
     <View   style={styles.container} >
-    <View style={{alignItems: 'center'}}>
-    <Icon
-                 name={'eye'}
-                style={{
-                  width: '50%',
-                  height: 100,
-                  
-                  margin: 30,
-                }}
-              />
+
+
+<View style={{alignItems: 'center'}}>
+    <Image source={require('../assets/library-icon.png')} style={styles.image} />
             </View>
-      <Button title="Unesite sliku" onPress={() =>handleFileUpload('image/*')} />
+
+      
+      
+   
+      
+      <Pressable
+          style={styles.button}
+          onPress={() =>handleFileUpload('image/*')}
+        >
+          <Text style={styles.buttonText}>{"Unesite sliku"}</Text>
+        </Pressable>
+
+
+
+
+
+
+
       {  succesImage ==true?<Text  style={styles.success}>Uspesno ste izabrali sliku</Text>:<View/>}
       <Text    >Slika je obavezna</Text>
-      <Button title="Unesite pdf" onPress={() =>handleFileUpload('application/pdf')} />
+      <Pressable
+          style={styles.button}
+          onPress={() =>handleFileUpload('application/pdf')} 
+        >
+          <Text style={styles.buttonText}>{"Unesite pdf"}</Text>
+        </Pressable>
+
+
+
+
       {  succesPdf ==true?<Text  style={styles.success}>Uspesno ste izabrali pdf</Text>:<View/>}
       <Text>pdf knjiga je obavezna</Text>
       
@@ -224,19 +245,12 @@ else
 
 
 
-       /*   if(text.length!=0)
-          {
-setNameWarning(true)
-          }
-          else
-          {
-            setNameWarning(false)
-            
-          }*/
+    
           setNameBook(text)
          }
         }
         placeholderTextColor='white'
+        underlineColor="transparent"
       />
         {nameWarning==true?<Text      style={styles.warning}>Naziv je obavezan i  mora pocinjati velikim slovom</Text>:<View/>}
       
@@ -244,7 +258,14 @@ setNameWarning(true)
        {  globalWarning ==true?<Text  style={styles.warning}>Unesite sve podatke</Text>:<View/>}
       {  success ==true?<Text  style={styles.success}>Uspesno ste uneli knigu</Text>:<View/>}
       { uploadd==true?<ActivityIndicator/>:<View/> }
-       <Button title="Unesite knjigu" onPress={UploadBooks} />
+ 
+       <Pressable
+          style={styles.button}
+          onPress={UploadBooks} 
+        >
+          <Text style={styles.buttonText}>{"Unesite knjigu"}</Text>
+        </Pressable>
+       
        
     </View>
     
@@ -266,15 +287,10 @@ const styles = {
     marginVertical: 10,
     paddingHorizontal: 16,
   },
-  image: {
-    width: 50,
-    height: 50,
-    marginRight: 10,
-  },
-  input: {
-    height: 40,
-    marginBottom: 10,
-    backgroundColor: '#fff',
+  image:
+  {
+height:200,
+width:200
   },
   warning: {
     height: 40,
@@ -289,11 +305,11 @@ const styles = {
   input: {
     width: 350,
     height: 55,
-    backgroundColor: '#42A5F5',
+
     margin: 10,
     padding: 8,
-    color: 'white',
-    borderRadius: 14,
+
+
     fontSize: 18,
     fontWeight: '500',
   },
@@ -303,4 +319,20 @@ const styles = {
     alignItems: 'center',
     backgroundColor: "white",
   },
+  button: {
+    width: 150,
+    backgroundColor: "green",
+  
+    padding: 7,
+    paddingHorizontal: 15,
+    borderRadius: 5,
+    display: 'flex',
+    justifyContent: 'center',
+  }
+  ,
+  buttonText: {
+    color:"white",
+  fontWeight:"600",
+  alignSelf:"center"
+  }
 };

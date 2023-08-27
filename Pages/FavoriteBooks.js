@@ -137,9 +137,7 @@ axios
 
 
   />
- 
-</View>
-<TouchableOpacity onPress={SortText}    >
+ <TouchableOpacity onPress={SortText}    >
 <Icon 
         name={sortb}
         
@@ -148,6 +146,8 @@ axios
       />
   
     </TouchableOpacity>
+</View>
+
      
     </View>
      <Book  data={data}       navigation={navigation}></Book>
@@ -160,13 +160,18 @@ const styles={
   header: {
     flexDirection: "row",
     alignItems: "center",
+    display: 'flex',
+    padding: 12,
+    gap: 12,
+    alignItems: 'center',
+    
   },
   input: {
     flex: 1,
     borderWidth: 1,
     borderColor: "gainsboro",
     borderRadius: 5,
-    padding: 10,
+    //padding: 10,
     marginVertical: 5,
   },
   MainContainer: 

@@ -1,9 +1,10 @@
 
 import React, {  useState } from "react";
-import { Button, StyleSheet, TextInput,Text,View,TouchableOpacity,Image,ActivityIndicator} from "react-native";
+import { Button, StyleSheet,Text,View,TouchableOpacity,Image,ActivityIndicator,Pressable} from "react-native";
 import axios from "axios";
 import { baseUlr } from "../config";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { TextInput } from 'react-native-paper';
 function Register ({ navigation })  {
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
@@ -88,17 +89,12 @@ setGlobalWarning(true)
 
       <View style={styles.container}>
         
-      <View style={{alignItems: 'center'}}>
-    <Icon
-                 name={'eye'}
-                style={{
-                  width: '50%',
-                  height: 100,
-                  
-                  margin: 30,
-                }}
-              />
+
+
+        <View style={{alignItems: 'center'}}>
+    <Image source={require('../assets/library-icon.png')} style={styles.image} />
             </View>
+     
         <TextInput
            style={styles.input}
            value={name}
@@ -136,6 +132,7 @@ setGlobalWarning(true)
              }}
            autoCapitalize={"none"}
           placeholderTextColor='white'
+            underlineColor="transparent"
          
         />
           {  nameWarning ==true?<Text  style={styles.warning}>Ime mora imati najmanje tri slova</Text>:<View/>}
@@ -172,7 +169,7 @@ setGlobalWarning(true)
           setAlredyExist(false)
         }}
          placeholderTextColor='white'
-          
+            underlineColor="transparent"
         />
          {  surnNameWarning ==true?<Text  style={styles.warning}>Prezime mora imati najmanje tri slova</Text>:<View/>}
          {  surnNameWarning2 ==true?<Text  style={styles.warning}>Prezime mora pocinjati velikim slovom</Text>:<View/>}
@@ -199,6 +196,7 @@ setGlobalWarning(true)
          }}
          autoCapitalize={"none"}
          placeholderTextColor='white'
+           underlineColor="transparent"
         />
         {  usernameWarning ==true?<Text  style={styles.warning}>Korisnicko ime mora imati najmanje tri slova</Text>:<View/>}
         <View>
@@ -222,6 +220,7 @@ setGlobalWarning(true)
             setAlredyExist(false)
             setPassword(text)}}
             placeholderTextColor='white'
+              underlineColor="transparent"
         />
          <TouchableOpacity
                   activeOpacity={0.8}
@@ -255,6 +254,7 @@ setGlobalWarning(true)
           setAlredyExist(false)
           setConfirmPassword(text)}}
           placeholderTextColor='white'
+            underlineColor="transparent"
       />
       <TouchableOpacity
                   activeOpacity={0.8}
@@ -272,9 +272,13 @@ setGlobalWarning(true)
 
      { uploadd==true?<ActivityIndicator/>:<Text></Text>}
 
-        <Button
-           onPress={onPressHandler} title={"Registrujte se"} 
-          />
+       
+           <Pressable
+          style={styles.button}
+          onPress={onPressHandler}
+        >
+          <Text style={styles.buttonText}>{"Registrujte se"}</Text>
+        </Pressable>
  {  globalWarning ==true?<Text  style={styles.warning}>Unesite ispravno podatke</Text>:<View/>}
       {  alredyExist ==true?<Text  style={styles.warning}>Kornisnik sa ovim korisnickim imenom vec postoji</Text>:<View/>}
 
@@ -314,11 +318,11 @@ const styles = StyleSheet.create({
   input: {
     width: 350,
     height: 55,
-    backgroundColor: '#42A5F5',
+
     margin: 10,
     padding: 8,
-    color: 'white',
-    borderRadius: 14,
+
+
     fontSize: 18,
     fontWeight: '500',
   },
@@ -330,11 +334,11 @@ const styles = StyleSheet.create({
   },
   visibilityBtn: {
     position: 'absolute',
-    right: 14,
+    right: 24,
     height: 25,
     width: 25,
     padding: 0,
-    marginTop: 25,
+    marginTop: 32,
   },
   warning: {
     height: 40,
@@ -350,7 +354,28 @@ success: {
   height: 40,
   marginBottom: 10,
   color: 'green',
-}
+},
+image:
+  {
+height:200,
+width:200
+  },
+  button: {
+    width: 150,
+    backgroundColor: "green",
+    marginBottom: 18,
+    padding: 7,
+    paddingHorizontal: 15,
+    borderRadius: 5,
+    display: 'flex',
+    justifyContent: 'center',
+  }
+  ,
+  buttonText: {
+    color:"white",
+  fontWeight:"600",
+  alignSelf:"center"
+  }
 
 })
 

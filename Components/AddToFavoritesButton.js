@@ -64,14 +64,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 8,
+    paddingHorizontal: 8,
     borderRadius: 5,
-    borderWidth: 1,
     borderColor: '#ccc',
-    backgroundColor:"green"
+    backgroundColor:"green",
+    height: 34
   },
   buttonText: {
     marginLeft: 5,
+    color: 'white'
   },
 });
 
