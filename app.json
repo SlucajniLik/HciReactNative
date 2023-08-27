@@ -2,13 +2,13 @@
   "expo": {
   
  
-    "name": "my-project",
-    "slug": "my-project",
+    "name": "Library",
+    "slug": "Library-project",
     "privacy":"public",
-    "description":"moja aplikacija",
+    "description":"aplication for book downloading",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/library-icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",

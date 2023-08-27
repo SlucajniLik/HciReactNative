@@ -30,6 +30,8 @@ const [bookCheck,setBookCheck]=useState(null)
 const [globalWarning,setGlobalWarning]=useState(null)
 
 const [success,setSuccess]=useState(null)
+const [succesImage,setSuccesImage]=useState(null)
+const [succesPdf,setSuccesPdf]=useState(null)
 const [uploadd,setUploadd]=useState(false)
 const uploadFileToFirebase = async (fileUri,filenamee,type) => {
   try {
@@ -92,11 +94,13 @@ console.log(file.mimeType)
           {
             setUriImage(file.uri)
             setNameImage(file.name)
+            setSuccesImage(true)
           }
           else
           {
             setUriBook(file.uri)
             setNameBook1(file.name)
+            setSuccesPdf(true)
           }
        // uploadFileToFirebase(file.uri,file.name)
       }
@@ -191,8 +195,10 @@ else
               />
             </View>
       <Button title="Unesite sliku" onPress={() =>handleFileUpload('image/*')} />
+      {  succesImage ==true?<Text  style={styles.success}>Uspesno ste izabrali sliku</Text>:<View/>}
       <Text    >Slika je obavezna</Text>
       <Button title="Unesite pdf" onPress={() =>handleFileUpload('application/pdf')} />
+      {  succesPdf ==true?<Text  style={styles.success}>Uspesno ste izabrali pdf</Text>:<View/>}
       <Text>pdf knjiga je obavezna</Text>
       
       <TextInput
