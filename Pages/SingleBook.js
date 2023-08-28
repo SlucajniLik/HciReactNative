@@ -155,6 +155,7 @@ function SingleBook({ navigation, route }) {
 
 
     //console.log("Downloaded file:"+fileURL)
+    
     let LocalPath = FileSystem.documentDirectory + filename;
     const result = await FileSystem.downloadAsync(fileURL, LocalPath)
     console.log("Uriiil:" + result.uri)
@@ -206,51 +207,14 @@ function SingleBook({ navigation, route }) {
 
 
 
-  /* async function downloadBook(url) {
-     const fileUrl = url;
  
-     try {
-       const downloadDest = `${FileSystem.documentDirectory}book.pdf`;
- 
-       const response = await fetch(fileUrl);
-       const fileContents = await response.text();
- 
-       await FileSystem.writeAsStringAsync(downloadDest, fileContents, {
-         encoding: FileSystem.EncodingType.Base64,
-       });
- 
-       console.log('Download complete:', downloadDest);
- 
-       // Handle download success
-       // You can perform any additional operations here, such as opening the downloaded book
-     } catch (error) {
-       console.log('Download error:', error);
-       // Handle download error
-     }
-   }*/
-  const data = [
-    { id: 1, title: 'Item 1' },
-    { id: 2, title: 'Item 2' },
-    { id: 3, title: 'Item 3' },
-    // Add more items as needed
-  ];
   const renderItem = (item) => (
     <View style={styles.profileContainer} key={item.id.toString()}  >
       <Text style={styles.userTex}   >@{item.username}
 
 
 
-        {
-          /*  Math.floor((new Date()-new Date(item.datum.split("T")[0]))/ (1000 * 60 * 60 * 24))==0?
-            Math.floor((new Date()-new Date(item.datum.split("T")[0]))/ (1000 * 60 * 60 * 24))+"hours":
-            Math.floor((new Date()-new Date(item.datum.split("T")[0]))/ (1000 * 60 * 60))+"days"*/
-          /*>0?
-          Math.floor((new Date()-new Date(item.datum.split("T")[0]))/ (1000 * 60 * 60 * 24))+"days":""*/
-
-          /* Math.floor((new Date()-new Date(item.datum.split("T")[0]))/ (1000 * 60 * 60)%24)?
-           Math.floor((new Date()-new Date(item.datum.split("T")[0]))/ (1000 * 60 * 60)%24)+"hours":"sad"*/
-
-        }
+       
 
       </Text>
       <Text style={styles.comTex}  >{item.text}</Text>
@@ -258,9 +222,13 @@ function SingleBook({ navigation, route }) {
   );
 
   const handleRating = (rating) => {
-    // Handle the selected rating here
+    
     console.log('Selected Rating:', rating);
   };
+
+  const [selected, setSelected] = useState(false);
+
+
   return (
 
     <ScrollView>
@@ -293,7 +261,10 @@ function SingleBook({ navigation, route }) {
         </View>
         <View style={styles.buttonsRow}>
           <Pressable
-            style={styles.button2}
+            onPressIn={() => setSelected(true)}
+            onPressOut={() => setSelected(false)}
+   
+          style={selected?styles.button2Press :styles.button2}
             onPress={() => downloadBook(book.urlBook.toString(), book.name + ".pdf")}
           >
             <Text style={styles.buttonText2}>{"Skini knjigu"}</Text>
@@ -391,6 +362,21 @@ const styles = {
   },
   button2: {
     backgroundColor: "green",
+    alignSelf: "center",
+    marginTop: "auto",
+    marginVertical: 10,
+    
+    paddingHorizontal: 15,
+    borderRadius: 5,
+    color: 'white',
+    height:35,
+    width: 150,
+    flex:1,
+    justifyContent:'center'
+
+  },
+  button2Press: {
+    backgroundColor: "lightgreen",
     alignSelf: "center",
     marginTop: "auto",
     marginVertical: 10,
@@ -514,25 +500,3 @@ const styles = {
 
 export default SingleBook;
 
-/*const styles = {
-  wrapper: {
-    flex: 1,
-    backgroundColor: "white",
-  },
-  bookContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 10,
-    paddingHorizontal: 16,
-  },
-  image: {
-    width: 50,
-    height: 50,
-    marginRight: 10,
-  },
-  input: {
-    height: 40,
-    marginBottom: 10,
-    backgroundColor: '#fff',
-  },
-};*/

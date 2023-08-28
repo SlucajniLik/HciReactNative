@@ -77,7 +77,7 @@ useEffect(()=>{
   var headers;
   headers={
     Authorization: `Bearer ${userToken}`,
-    // You can add other headers here if needed
+ 
   };
      
 
@@ -110,7 +110,7 @@ axios
         var headers;
         headers={
           Authorization: `Bearer ${userToken}`,
-          // You can add other headers here if needed
+         
         };
       axios
     .get(baseUlr+"searchBooksFav/"+user?.userId+"/"+text,{ headers })
@@ -132,7 +132,7 @@ axios
       
       
       SetBookS(text)}}
-    //onChange={SearchText}
+
 
 
 

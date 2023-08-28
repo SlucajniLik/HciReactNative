@@ -1,4 +1,4 @@
-export const baseUlr="http://lekar1-001-site1.htempurl.com/"
+export const baseUlr="http://amiiiii-001-site1.gtempurl.com/"
 import  firebase  from "firebase/compat/app";
 import  "firebase/compat/auth";
 import  "firebase/compat/firestore";

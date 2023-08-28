@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useState }from 'react';
 import { View, FlatList ,Text,Image,Button,Pressable} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import LikeButton from '../Components/LikeButton';
@@ -22,7 +22,7 @@ console.log(id+"/////")
 
 
 
-
+const [selected, setSelected] = useState(0);
   return (
  
     <FlatList
@@ -38,7 +38,11 @@ console.log(id+"/////")
   
   <Text style={styles.title}>{item.name}</Text>
   <Pressable
-  style={styles.button}
+  //style={styles.button}
+  onPressIn={() => setSelected(item.id)}
+          onPressOut={() => setSelected(0)}
+ 
+        style={selected==item.id?styles.buttonPress :styles.button}
   onPress={()=>onPressHandler(item.id)}
 >
   <Text style={styles.buttonText}>{"Pogledaj detalje"}</Text>
@@ -94,6 +98,16 @@ paddingHorizontal:15,
 borderRadius:5
   }
   ,
+  buttonPress:{
+    backgroundColor:"lightgreen",
+    alignSelf:"flex-start",
+    marginTop:"auto",
+    marginVertical:10,
+    padding:7,
+    paddingHorizontal:15,
+    borderRadius:5
+      }
+      ,
   buttonText:{
   color:"white",
   fontWeight:"600"
@@ -110,21 +124,3 @@ borderRadius:5
 
 
 
-
-/*const styles = {
-  wrapper: {
-    flex: 1,
-    backgroundColor: 'yellow',
-  },
-  bookContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 10,
-    paddingHorizontal: 16,
-  },
-  image: {
-    width: 50,
-    height: 50,
-    marginRight: 10,
-  },
-};*/

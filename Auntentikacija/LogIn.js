@@ -67,7 +67,8 @@ function Login({ navigation }) {
 
   }
 
-
+  const [selected, setSelected] = useState(false);
+  const [selected2, setSelected2] = useState(false);
   return (
     <>
 
@@ -111,17 +112,24 @@ function Login({ navigation }) {
           </TouchableOpacity>
         </View>
 
-
+        {warning != null ? <Text style={styles.warning}>{warning}</Text> : <View />}
         <Pressable
-          style={styles.button}
+          onPressIn={() => setSelected(true)}
+          onPressOut={() => setSelected(false)}
+ 
+        style={selected?styles.buttonPress :styles.button}
           onPress={onPressHandler}
         >
           <Text style={styles.buttonText}>{"Ulogujte se"}</Text>
         </Pressable>
         
-        {warning != null ? <Text style={styles.warning}>{warning}</Text> : <View />}
+        
         <Pressable
-          style={styles.button}
+         onPressIn={() => setSelected2(true)}
+         onPressOut={() => setSelected2(false)}
+
+       style={selected2?styles.buttonPress :styles.button}
+         
           onPress={onPressHandler2}
         >
           <Text style={styles.buttonText}>{"Registrujte se"}</Text>
@@ -179,6 +187,16 @@ const styles = StyleSheet.create({
   button: {
     width: 150,
     backgroundColor: "green",
+    marginVertical: 10,
+    padding: 7,
+    paddingHorizontal: 15,
+    borderRadius: 5,
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  buttonPress: {
+    width: 150,
+    backgroundColor: "lightgreen",
     marginVertical: 10,
     padding: 7,
     paddingHorizontal: 15,

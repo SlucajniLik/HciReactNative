@@ -60,15 +60,6 @@ function BookList({ navigation }) {
 
 
 
-  const onPressHandler = () => {
-
-
-
-
-    navigation.navigate('SingleBook', { idBook: 5 });
-
-
-  }
 
 
 
@@ -78,25 +69,17 @@ function BookList({ navigation }) {
 
 
 
-
-  const LogOut = () => {
-    SetUser(null)
-    SetUserToken(null)
-    AsyncStorage.removeItem("user")
-    AsyncStorage.removeItem("token")
-    // navigation.navigate('BookList');
-  }
 
 
   var headers;
   useEffect(() => {
     headers = {
       Authorization: `Bearer ${userToken}`,
-      // You can add other headers here if needed
+      
     };
 
 
-    //moram da stavim headers jer nece drugacije
+    //headers
     axios
       .get(baseUlr + "getBooks", { headers })
       .then((response) => {
@@ -128,7 +111,7 @@ function BookList({ navigation }) {
               var headers;
               headers = {
                 Authorization: `Bearer ${userToken}`,
-                // You can add other headers here if needed
+               
               };
               if (text != "") {
                 axios
@@ -189,13 +172,6 @@ function BookList({ navigation }) {
   );
 };
 
-/*const styles = StyleSheet.create({
-  input: {
-    height: 40,
-    marginBottom: 10,
-    backgroundColor: '#fff',
-  },
-});*/
 
 
 const styles = {

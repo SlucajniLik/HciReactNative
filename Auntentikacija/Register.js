@@ -5,6 +5,7 @@ import axios from "axios";
 import { baseUlr } from "../config";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { TextInput } from 'react-native-paper';
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 function Register ({ navigation })  {
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
@@ -35,7 +36,7 @@ function Register ({ navigation })  {
   const onPressHandler = () => {
  
   
-
+    
 
 if(nameWarning==false && surnNameWarning==false  &&
   nameWarning2==false && surnNameWarning2==false 
@@ -72,9 +73,16 @@ console.log(user)
                   
                    setSuccess(true)  
                    setUploadd(false)
+                   setName("")
+                   setSurname("")
+                   setUsername("")
+                   setPassword("")
+                   setConfirmPassword("")
+                   setShowPassword(false)
+                   setShowPassword2(false)
 
                }
-               // navigation.navigate('LogIn');
+               
             });
 }
 else
@@ -83,10 +91,16 @@ setGlobalWarning(true)
 }
 
   }
+
+
+  const [selected, setSelected] = useState(false);
   return (
     
 
+<KeyboardAwareScrollView
 
+keyboardShouldPersistTaps='always'
+>
       <View style={styles.container}>
         
 
@@ -102,7 +116,7 @@ setGlobalWarning(true)
            onChangeText={(text) => {
            
 
-
+            
 
             if(text.charAt(0)!=text.charAt(0).toUpperCase())
             {
@@ -144,6 +158,7 @@ setGlobalWarning(true)
         placeholder={"Prezime"}
 
         onChangeText={(text) =>{
+          
           if(text.length<3)
           {
             setSurNameWarning(true)
@@ -178,6 +193,7 @@ setGlobalWarning(true)
          value={username}
          placeholder={"Korisnicko ime"}
          onChangeText={(text) => {
+          
            if(text.length<3)
            {
              setUsernameWarning(true)
@@ -206,6 +222,7 @@ setGlobalWarning(true)
           placeholder={"Lozinka"}
           secureTextEntry={!showPassword}
           onChangeText={(text) =>{
+          
             if(text.length<3)
             {
               setPasswordWarning(true)
@@ -241,6 +258,7 @@ setGlobalWarning(true)
         placeholder={"Potvrdite lozinku"}
         secureTextEntry={!showPassword2}
         onChangeText={(text) => {
+         
           if(text!=password)
           {
             setConfirmPasswordWarning(true)
@@ -250,6 +268,7 @@ setGlobalWarning(true)
           {
             setConfirmPasswordWarning(false)
           }
+          setSuccess(false)
           setGlobalWarning(false)
           setAlredyExist(false)
           setConfirmPassword(text)}}
@@ -272,24 +291,28 @@ setGlobalWarning(true)
 
      { uploadd==true?<ActivityIndicator/>:<Text></Text>}
 
-       
+     {  globalWarning ==true?<Text  style={styles.warning}>Unesite ispravno podatke</Text>:<View/>}
+      {  alredyExist ==true?<Text  style={styles.warning}>Kornisnik sa ovim korisnickim imenom vec postoji</Text>:<View/>}
+
+      {  success ==true?<Text  style={styles.success}>Uspesno ste se registrovali</Text>:<View/>}
            <Pressable
-          style={styles.button}
+            
+            onPressIn={() => setSelected(true)}
+            onPressOut={() => setSelected(false)}
+
+          style={selected?styles.buttonPress :styles.button}
           onPress={onPressHandler}
         >
           <Text style={styles.buttonText}>{"Registrujte se"}</Text>
         </Pressable>
- {  globalWarning ==true?<Text  style={styles.warning}>Unesite ispravno podatke</Text>:<View/>}
-      {  alredyExist ==true?<Text  style={styles.warning}>Kornisnik sa ovim korisnickim imenom vec postoji</Text>:<View/>}
 
-      {  success ==true?<Text  style={styles.success}>Uspesno ste se registrovali</Text>:<View/>}
       </View>
 
 
 
 
 
-
+</KeyboardAwareScrollView>
 
 
 
@@ -369,6 +392,16 @@ width:200
     borderRadius: 5,
     display: 'flex',
     justifyContent: 'center',
+  },
+  buttonPress: {
+    width: 150,
+    backgroundColor: "lightgreen",
+    marginBottom: 18,
+    padding: 7,
+    paddingHorizontal: 15,
+    borderRadius: 5,
+    display: 'flex',
+    justifyContent: 'center',
   }
   ,
   buttonText: {
@@ -385,32 +418,6 @@ width:200
 
 
 
-/*const styles = StyleSheet.create({
-  input: {
-    height: 40,
-    marginBottom: 10,
-    backgroundColor: '#fff',
-  },
-  warning: {
-    height: 40,
-    marginBottom: 10,
-    backgroundColor: 'red',
-  },
-  success: {
-    height: 40,
-    marginBottom: 10,
-    backgroundColor: 'green',
-  },
-  toggleButton: {
-    paddingVertical: 5,
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '100%',
-    marginBottom: 10,
-  },
-});*/
+
 
 export default Register

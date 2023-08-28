@@ -15,13 +15,17 @@ const AddToFavoritesButton = ({isFavoritt ,setIsFavoritt,bookIdd,userIdd}) => {
 }
   const handleToggleFavorite = () => {
 
-
+    var headers;
+    headers={
+      Authorization: `Bearer ${userToken}`,
+      // You can add other headers here if needed
+    };
 if(isFavoritt)
 {
 
 
   axios
-  .delete(baseUlr+"removeFav",{data:fav})
+  .delete(baseUlr+"removeFav",{data:fav},{ headers })
   .then((response) => {
     console.log(response.data+"9999999")
     setIsFavoritt(!isFavoritt)
@@ -47,7 +51,7 @@ SetSharedCheck(!sharedCheck)
 
 
 
-    // Perform any additional logic here, like adding/removing from favorites list, etc.
+    
   };
 
   return (

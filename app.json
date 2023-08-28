@@ -11,7 +11,7 @@
     "icon": "./assets/library-icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/library-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

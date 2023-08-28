@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { baseUlr } from "../config";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { TextInput } from 'react-native-paper';
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 //import firebase from 'firebase/app';
 
 //import firebase from "firebase";
@@ -69,7 +70,7 @@ else(type=="image")
   setGlobalWarning(false)
   
 }
-    // Do something with the downloadURL, such as saving it to a database
+    
     console.log('File uploaded successfully:', downloadURL);
 
     return downloadURL;
@@ -79,7 +80,7 @@ else(type=="image")
 };
   const [image,SetImage]=useState(null)
   const handleFileUpload = async (f)=> {
-
+    
     setSuccess(false)
     try {
       const file = await DocumentPicker.getDocumentAsync({
@@ -96,6 +97,7 @@ console.log(file.mimeType)
             setUriImage(file.uri)
             setNameImage(file.name)
             setSuccesImage(true)
+            
           }
           else
           {
@@ -149,6 +151,9 @@ console.log(file.mimeType)
         .post(baseUlr+"addBook",book,{ headers })
         .then((response) => {
           setUploadd(false)
+          setSuccesImage(false)
+          setSuccesPdf(false)
+          setNameBook("")
            console.log(response)
             
         });
@@ -180,12 +185,15 @@ else
 
 
 
-
+const [selected, setSelected] = useState(false);
+const [selected2, setSelected2] = useState(false);
+const [selected3, setSelected3] = useState(false);
   return (
     
-    <View   style={styles.container} >
+    <View  style={styles.container} >
 
-
+<KeyboardAwareScrollView keyboardShouldPersistTaps='always'>
+<View  style={styles.container} >
 <View style={{alignItems: 'center'}}>
     <Image source={require('../assets/library-icon.png')} style={styles.image} />
             </View>
@@ -195,7 +203,10 @@ else
    
       
       <Pressable
-          style={styles.button}
+           onPressIn={() => setSelected(true)}
+           onPressOut={() => setSelected(false)}
+  
+         style={selected?styles.buttonPress :styles.button}
           onPress={() =>handleFileUpload('image/*')}
         >
           <Text style={styles.buttonText}>{"Unesite sliku"}</Text>
@@ -210,7 +221,10 @@ else
       {  succesImage ==true?<Text  style={styles.success}>Uspesno ste izabrali sliku</Text>:<View/>}
       <Text    >Slika je obavezna</Text>
       <Pressable
-          style={styles.button}
+          onPressIn={() => setSelected2(true)}
+          onPressOut={() => setSelected2(false)}
+ 
+        style={selected2?styles.buttonPress :styles.button}
           onPress={() =>handleFileUpload('application/pdf')} 
         >
           <Text style={styles.buttonText}>{"Unesite pdf"}</Text>
@@ -245,7 +259,7 @@ else
 
 
 
-    
+          setSuccess(false)
           setNameBook(text)
          }
         }
@@ -260,14 +274,18 @@ else
       { uploadd==true?<ActivityIndicator/>:<View/> }
  
        <Pressable
-          style={styles.button}
+          onPressIn={() => setSelected3(true)}
+          onPressOut={() => setSelected3(false)}
+ 
+        style={selected3?styles.buttonPress :styles.button}
           onPress={UploadBooks} 
         >
           <Text style={styles.buttonText}>{"Unesite knjigu"}</Text>
         </Pressable>
-       
-       
-    </View>
+        </View>
+        </KeyboardAwareScrollView>
+       </View>
+  
     
   );
 };
@@ -295,6 +313,8 @@ width:200
   warning: {
     height: 40,
     marginBottom: 10,
+    
+    marginTop:-5,
     color: 'red',
   },
   success: {
@@ -317,12 +337,23 @@ width:200
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: "white",
+    backgroundColor: "white"
   },
   button: {
     width: 150,
     backgroundColor: "green",
   
+    padding: 7,
+    paddingHorizontal: 15,
+    borderRadius: 5,
+    display: 'flex',
+    justifyContent: 'center',
+  }
+  ,
+  buttonPress: {
+    width: 150,
+    backgroundColor: "lightgreen",
+    marginVertical: 10,
     padding: 7,
     paddingHorizontal: 15,
     borderRadius: 5,
